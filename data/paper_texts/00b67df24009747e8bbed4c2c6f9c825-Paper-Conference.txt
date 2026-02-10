@@ -1,0 +1,1803 @@
+Adaptive Selective Sampling for Online Prediction
+with Experts
+Rui M. Castro
+Eindhoven University of Technology,
+Eindhoven Artificial Intelligence Systems Institute (EAISI)
+rmcastro@tue.nl
+Fredrik Hellström
+University College London
+f.hellstrom@ucl.ac.uk
+Tim van Erven
+University of Amsterdam
+tim@timvanerven.nl
+Abstract
+We consider online prediction of a binary sequence with expert advice. For this
+setting, we devise label-efficient forecasting algorithms, which use a selective
+sampling scheme that enables collecting much fewer labels than standard proce-
+dures. For the general case without a perfect expert, we prove best-of-both-worlds
+guarantees, demonstrating that the proposed forecasting algorithm always queries
+sufficiently many labels in the worst case to obtain optimal regret guarantees, while
+simultaneously querying much fewer labels in more benign settings. Specifically,
+for a scenario where one expert is strictly better than the others in expectation, we
+show that the label complexity of the label-efficient forecaster is roughly upper-
+bounded by the square root of the number of rounds. Finally, we present numerical
+experiments empirically showing that the normalized regret of the label-efficient
+forecaster can asymptotically match known minimax rates for pool-based active
+learning, suggesting it can optimally adapt to benign settings.
+1
+Introduction
+This paper considers online prediction with expert advice in settings where collecting feedback might
+be costly or undesirable. In the classical framework of sequence prediction with expert advice, a
+forecasting algorithm aims to sequentially predict a stream of labels on the basis of predictions issued
+by a number of experts (see, for instance, [1, 2, 3] and references therein). Typically, the forecaster
+receives the correct label after making a prediction, and uses that feedback to update its prediction
+strategy. There are, however, situations where collecting labels is costly and potentially unnecessary.
+In the context of online prediction, this naturally leads to the notion of selective sampling strategies,
+also called label-efficient prediction [4, 5, 6, 7, 8, 9]. In this line of work, there is a natural tension
+between performance (in terms of regret bounds) and label complexity, i.e., the number of labels
+collected. For a worst-case scenario, the optimal label-efficient strategy amounts to “flipping a coin”
+to decide whether or not to collect feedback, irrespective of past actions and performance [5]. Indeed,
+in the worst case, the number of labels that one has to collect is linear in the number of rounds for any
+algorithm [10]. This is a rather pessimistic perspective, and can miss the opportunity to reduce label
+complexity when prediction is easy. With this in mind, the adaptive selective sampling algorithms we
+develop follow naturally from a simple design principle: optimize the label collection probability at
+any time while preserving worst-case regret guarantees. This principled perspective leads to a general
+way to devise simple but rather powerful algorithms. These are endowed with optimal worst-case
+37th Conference on Neural Information Processing Systems (NeurIPS 2023).
+performance guarantees, while allowing the forecaster to naturally adapt to benign scenarios and
+collect much fewer labels than standard (non-selective sampling) algorithms.
+From a statistical perspective, the scenario above is closely related to the paradigm of active learning
+[11, 12, 13, 14, 15, 16]. For instance, in pool-based active learning, the learner has access to a large
+pool of unlabeled examples, and can sequentially request labels from selected examples. This extra
+flexibility, when used wisely, can enable learning a good prediction rule with much fewer labeled
+examples than what is needed in a passive learning setting, where labeled examples are uniformly
+sampled from the pool in an unguided way [17, 14, 15, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]. Our
+work is partly motivated by such active learning frameworks, with the aim of devising a simple and
+adaptive methodology that does not rely on intricate modeling assumptions.
+The main contributions of this paper are novel label-efficient exponentially weighted forecasting
+algorithms, which optimally decide whether or not to collect feedback. The proposed approach
+confirms, in a sound way, the intuition that collecting labels is more beneficial whenever there is a
+lack of consensus among the (weighted) experts. The proposed algorithms are designed to ensure
+that, in adversarial settings, they retain the known worst-case regret guarantees for full-information
+forecasters (i.e., forecasters that collect all labels) while providing enough flexibility to attain low label
+complexity in benign scenarios. To characterize the label complexity of the label-efficient forecaster,
+we focus on a scenario where the expected loss difference between the best expert and all other experts
+for all n rounds is lower-bounded by ∆, and show that the label complexity is roughly √n/∆2,
+ignoring logarithmic factors. This shows that the label-efficient forecaster achieves the “best of both
+worlds”: it smoothly interpolates between the worst case, where no method can have optimal regret
+with less than O(n) queries, and the benign, stochastic case, where it is sufficient to make O(√n)
+queries. Finally, to further examine the performance of the label-efficient forecaster, we conduct a
+simulation study. We find that the performance of the label-efficient forecaster is comparable to its
+full-information counterpart, while collecting significantly fewer labels. Intriguingly, for a threshold
+prediction setting studied in [14], the numerical results indicate that the label-efficient forecaster
+optimally adapts to the underlying prediction problem, so that its normalized regret displays the same
+asymptotic behavior as known minimax rates for active learning.
+Before formally introducing our setting, we discuss additional related work. Selective sampling
+for online learning was studied by [4, 5, 28], with a focus on probabilistic threshold functions and
+margin-based sampling strategies. Similarly, [8] consider kernel-based linear classifiers, and base
+their sampling procedure on the estimated margin of the classifier. For the same setting as we consider,
+[29, 30] propose a selective sampling approach based on the maximum (unweighted) prediction
+disagreement among the experts, and numerically demonstrate its merits. Finally, results in a similar
+spirit to ours have recently been established in different settings. Namely, for a strongly convex loss,
+[9] devised an algorithm for selective sampling with expert advice, which provably retains worst-case
+regret guarantees, where the sampling strategy is based on the variance of the forecaster’s prediction.
+[31] study a setting with shifting hidden domains, and establish a tradeoff between regret and label
+complexity in terms of properties of these domains. For a setting where the hypothesis class has
+bounded VC dimension and the data satisfies a Tsybakov noise condition, [32] devise a sampling
+strategy, with bounds on the regret and label complexity, based on a notion of disagreement where
+hypotheses are discarded based on their discrepancy relative to the empirical risk minimizer.
+2
+Setting
+Throughout, we focus on a binary prediction task with the zero-one loss as a performance metric.
+We refer to yt as the outcome at time t ∈[n] := {1, . . . , n}. No assumptions are made on this
+sequence, which can potentially be created in an adversarial way. To aid in the prediction task, the
+forecaster has access to the predictions of N experts. The prediction of the forecaster at time t can
+only be a function of the expert predictions (up to time t) and the observed outcomes up to time t −1.
+Furthermore, the algorithm can make use of internal randomization.
+Formally, let fi,t ∈{0, 1}, with i ∈[N] := {1, . . . , N} and t ∈[n], denote the advice of the experts.
+At every time t ∈[n], the forecasting algorithm must: (i) output a prediction ˆyt of yt; (ii) decide
+whether or not to observe yt. Specifically, for each round t ∈[n]:
+• The environment chooses the outcome yt and the expert advice {fi,t}N
+i=1. Only the expert
+advice is revealed to the forecaster.
+2
+• The forecaster outputs a (possibly randomized) prediction ˆyt, based on all of the information
+that it has observed so far.
+• The forecaster decides whether or not to have yt revealed. We let Zt be the indicator of that
+decision, where Zt = 1 if yt is revealed and Zt = 0 otherwise.
+• A loss ℓ(ˆyt, yt) := 1 {ˆyt ̸= yt} is incurred by the forecaster and a loss ℓi,t := ℓ(fi,t, yt) is
+incurred by expert i, regardless of the value of Zt.
+Our goal is to devise a forecaster that observes as few labels as possible, while achieving low regret
+with respect to any specific expert. Regret with respect to the best expert at time n is defined as
+Rn := Ln −min
+i∈[N] Li,n ,
+where Ln := Pn
+t=1 ℓ(ˆyt, yt) and Li,n := Pn
+t=1 ℓ(fi,t, yt). Note that the regret Rn is, in general, a
+random quantity. In this work, we focus mainly on the expected regret E[Rn].
+Clearly, when no restrictions are imposed on the number of labels collected, the optimal approach
+would be to always observe the outcomes (i.e., take Zt = 1 for all t ∈[n]). This is optimal in a
+worst-case sense, but there are situations where one can predict as efficiently while collecting much
+fewer labels. The main goal of this paper is the development and analysis of methods that are able to
+capitalize on such situations, while still being endowed with optimal worst-case guarantees.
+2.1
+Exponentially weighted forecasters
+All proposed algorithms in this paper are variations of exponentially weighted forecasters [2]. For
+each time t ∈[n], such algorithms assign a weight wi,t ≥0 to the ith expert. The forecast prediction
+at time t and decision whether to observe the outcome or not are randomized, and based exclusively on
+the expert weights and the expert predictions at that time. Therefore, ˆyt ∼Ber(pt) and Zt ∼Ber(qt)
+are conditionally independent Bernoulli random variables given pt and qt. Here, pt and qt depend on
+the past only via the weights {wi,j−1}i∈[N],j∈[t] and the current expert predictions {fi,t}i∈[N]. The
+exact specifications of pt and qt depend on the setting and assumptions under consideration.
+After a prediction has been made, the weights for all experts are updated using the exponential
+weights update based on the importance-weighted losses ℓi,tZt/qt. Specifically,
+wi,t = wi,t−1 e−η
+ℓi,tZt
+qt
+,
+(1)
+where η > 0 is the learning rate. To ensure that the definition in (1) is sound for any qt ≥0, we
+set wi,t = wi,t−1 if qt = 0. Finally, we define the weighted average of experts predicting label 1 at
+time t as
+A1,t :=
+PN
+i=1 wi,t−1fi,t
+PN
+i=1 wi,t−1
+.
+(2)
+This quantity plays a crucial role in our sampling strategy. We will use the name exponentially
+weighted forecaster liberally to refer to any forecaster for which pt is a function of A1,t. Throughout,
+we assume that the weights for all forecasters are uniformly initialized as wi,0 = 1/N for i ∈[N].
+3
+Regret bounds with a perfect expert
+In this section, we consider a very optimistic scenario where one expert is perfect, in the sense that
+it does not make any mistakes. The results and derivation for this setting are didactic, and pave
+the way for more general scenarios where this assumption is dropped. We say that the ith expert is
+perfect if ℓi,t = 0 for all t ∈[n]. The existence of such an expert implies that mini∈[N] Li,n = 0.
+Therefore, the regret of a forecaster is simply the number of errors it makes, that is, Rn = Ln. In
+such a scenario, any reasonable algorithm should immediately discard experts as soon as they make
+even a single mistake. For an exponentially weighted forecaster, this is equivalent to setting η = ∞.
+Due to the uniform weight initialization, the scaled weight vector N · (w1,t, . . . , wN,t) is thus binary,
+and indicates which experts agree with all the observed outcomes up to time t.
+First, consider a scenario where the forecaster always collects feedback, that is, qt = 1 for all t ∈[n].
+A natural forecasting strategy at time t is to follow the majority, that is, to predict according to the
+3
+majority of the experts that have not made a mistake so far. When the forecaster predicts the wrong
+label, this implies that at least half of the experts still under consideration are not perfect. Since the
+number of experts under consideration is at least halved for each mistake the forecaster incurs, this
+strategy is guaranteed to make at most log2 N mistakes. Therefore, we have
+Rn = Ln ≤log2 N .
+(3)
+Clearly, this implies the following bound on the expected cumulative loss, and thus the regret:
+¯L(N)
+n
+:= E[Ln] ≤log2 N .
+(4)
+Here, the superscript (N) explicitly denotes the dependence on the number of experts. This bound is
+tight when the minority is always right and nearly equal in size to the majority.
+A natural question to ask is if there exists an algorithm that achieves the expected cumulative loss
+bound (4) while not necessarily collecting all labels. This is, in fact, possible. The most naive
+approach is to not collect a label if all experts still under consideration agree on their prediction, as in
+that case, they must all be correct due to the existence of a perfect expert. However, a more refined
+strategy that can collect fewer labels is possible, leading to the following theorem.
+Theorem 1. Consider the exponentially weighted follow-the-majority forecaster with η = ∞.
+Specifically, let pt = 1 {A1,t ≥1/2}, so that ˆyt = 1 {A1,t ≥1/2}. Furthermore, let
+qt =
+(
+0
+if A1,t ∈{0, 1},
+−
+1
+log2 min(A1,t,1−A1,t)
+otherwise.
+For this forecaster, we have
+¯L(N)
+n
+≤log2 N .
+Recall that A1,t is simply the proportion of experts still under consideration that predict yt = 1. It is
+insightful to look at the expression for qt, as it is somewhat intuitive. The bigger the disagreement
+between the experts’ predictions, the higher the probability that we collect a label. Conversely,
+when A1,t approaches either 0 or 1, qt quickly approaches zero, meaning we rarely collect a label.
+Theorem 1 tells us that, remarkably, we can achieve the same worst-case bound as the full-information
+forecaster while sometimes collecting much less feedback. The proof of this result, in Appendix A,
+uses a clean induction argument that constructively gives rise to the expression for qt. This principled
+way of reasoning identifies, in a sense, the best way to assess disagreement between experts: the
+specified qt is the lowest possible sampling probability that preserves worst-case regret guarantees.
+A slightly better regret bound is possible by using a variation of follow the majority, called the
+boosted majority of leaders. For this algorithm, the upper bound is endowed with a matching lower
+bound (including constant factors). In Appendix B, we devise a label-efficient version of the boosted
+majority of leaders, retaining the same worst-case regret bound as its full-information counterpart.
+4
+General regret bounds without a perfect expert
+In this section, we drop the assumption of the existence of a perfect expert. It is therefore no longer
+sensible to use an infinite learning rate η, since this would discard very good experts based on
+their first observed error. We consider the general exponentially weighted forecaster described in
+Section 2.1, now simply with pt = A1,t.
+For the scenario where qt = 1 for all t, a classical regret bound is well-known (see, for instance, [3,
+Thm 2.2]). Specifically, for the general exponentially weighted forecaster, with pt = A1,t, qt = 1,
+and uniform weight initialization, we have
+¯Rn := E[Rn] = E
+
+Ln −min
+i∈[N] Li,n
+
+≤ln N
+η
++ nη
+8 .
+(5)
+In Theorem 2 below, we prove a stronger version of (5) that allows for an adaptive label-collection
+procedure. As before, we focus on the expected regret, ¯Rn = E[Rn]. As done in Section 3 for the
+case of a perfect expert, we identify an expression for qt, which is not necessarily identically 1, but
+still ensures the bound in (5) is valid. To state our main result, we need the following definition,
+which is guaranteed to be sound by Lemma 1.
+4
+0
+0.2
+0.4
+0.6
+0.8
+1
+0
+0.2
+0.4
+0.6
+0.8
+1
+x
+q∗(x, η)
+η = 0.1
+η = 0.8
+η = 2
+η = 6
+(a)
+0
+1
+2
+3
+4
+5
+·10−2
+0
+0.2
+0.4
+0.6
+0.8
+1
+x
+q∗(x, η)
+η = 0.1
+η = 0.8
+η = 2
+η = 6
+(b)
+Figure 1: The function q∗(x, η) for various values of η. Panel (b) is a zoomed version of panel (a).
+Definition 1. For x ∈[0, 1] and η > 0, define
+q∗(x, η) = inf
+
+q ∈(0, 1] : x + q
+η ln
+
+1 −x + xe−η/q
+≤η
+8,
+(6)
+1 −x + q
+η ln
+
+x + (1 −x)e−η/q
+≤η
+8
+
+.
+In the following theorem, we present the label-efficient version of (5).
+Theorem 2. Consider an exponentially weighted forecaster with pt = A1,t and
+qt ≥q∗(A1,t, η) := q∗
+t .
+For this forecaster, we have
+¯Rn = E
+
+Ln −min
+i∈[N] Li,n
+
+≤ln N
+η
++ nη
+8 .
+(7)
+The proof, which is deferred to Appendix C, is similar to that used for Theorem 1, but with key
+modifications to account for the lack of a perfect expert. In particular, we need to account for the
+finite, importance-weighted weight updates, and carefully select q∗
+t accordingly. While the proof
+allows for non-uniform weight initializations, we focus on the uniform case, as this enables us to
+optimally tune the learning rate. The result for general weight initializations is given in Appendix C.
+Theorem 2 shows that the proposed label-efficient forecaster satisfies the same expected regret bound
+as the exponentially weighted forecaster with qt := 1. While the expression for q∗(x, η) in (6) is
+somewhat opaque, the underlying motivation is constructive, and it arises naturally in the proof of the
+theorem. In fact, q∗
+t is the smallest possible label-collection probability ensuring the regret bound (7).
+One may wonder if q∗
+t is well defined, as it is the infimum of a set that may be empty. However, as
+shown in the following lemma, this set always contains the point 1, ensuring that q∗
+t ≤1.
+Lemma 1. For all η > 0 and x ∈[0, 1], we have
+1 ∈
+
+q ∈(0, 1] : x + q
+η ln
+
+1 −x + xe−η/q
+≤η
+8
+
+.
+The proof is presented in Appendix D, and is essentially a consequence of Hoeffding’s inequality.
+While q∗(x, η) does not admit an analytic solution, its behavior as a function of x, depicted in
+Figure 1, is rather intuitive. Since η =
+p
+8(ln N)/n minimizes the regret bound (7), we are primarily
+interested in small values of η. When the learning rate η is not too large, the behavior of q∗
+t can be
+interpreted as follows: the larger the (weighted) disagreement of the experts is, the closer the value of
+A1,t is to the point 1/2. In this case, q∗
+t will be close to 1, and we collect a label with high probability.
+When A1,t is close to 0 or 1, the (weighted) experts essentially agree, so the probability of collecting
+a label will be small. For large learning rates, the behavior of q∗
+t appears a bit strange, but note that
+for η ≥8, the regret bound is vacuous. Thus, for this case, q∗(x, η) = 0 for all x ∈[0, 1].
+The regret guarantee in Theorem 2 is valid provided one uses any choice qt ≥q∗
+t . The following
+lemma provides both an asymptotic characterization of q∗
+t as η →0, as well as a simple upper bound
+that can be used for both analytical purposes and practical implementations.
+5
+Lemma 2. For any x ∈[0, 1], we have
+lim
+η→0 q∗(x, η) = 4x(1 −x) .
+Furthermore, for any η > 0 and x ∈[0, 1],
+q∗(x, η) ≤min(4x(1 −x) + η/3, 1) .
+(8)
+The proof of this result is somewhat technical and tedious, and deferred to Appendix E. In the
+remainder of this paper, we will use this upper bound extensively.
+5
+Label complexity
+We now examine the label complexity, defined as Sn := Pn
+t=1 Zt. In [10, Thm. 13], it is shown
+that there exists a setting for which the expected regret of a forecaster that collects m labels is
+lower-bounded by cn
+p
+ln(N −1)/m for some constant c. Hence, in the worst case, the number
+of collected labels needs to be linear in n in order to achieve an expected regret that scales at most
+as √n. However, since q∗
+t can be less than 1, it is clear that the label-efficient exponentially weighted
+forecaster from Theorem 2 can collect fewer than n labels in more benign settings. To this end,
+we consider a scenario with a unique best expert, which at each round is separated from the rest
+in terms of its expected loss. To state the condition precisely, we need to define Et = E[ · | Ft−1]
+as the expectation at time t conditional on all possible randomness up to time t −1, that is, for
+Ft = σ({Zj, yj, f1,j, . . . , fN,j}j=1,...,t). With this, we assume that there is a unique expert i∗∈[N]
+such that, for all i ̸= i∗and t ∈[n],
+Et[ℓi,t −ℓi∗,t] ≥∆> 0
+almost surely.
+The parameter ∆characterizes the difficulty of the given learning problem. If ∆is large, the best
+expert significantly outperforms the others, and is thus easily discernible, whereas if ∆is small, the
+best expert is harder to identify. In particular, if the vectors (yt, f1,t, . . . , fN,t) are independent and
+identically distributed over rounds t ∈[n], ∆is just the difference in expected loss between the best
+and the second-best expert in a single round, which is a common measure of difficulty for stochastic
+bandits [33, Thm. 2.1]. This difficulty measure has also been used in the context of prediction with
+expert advice [34]. Similar stochastic assumptions are standard in (batch) active learning, and highly
+relevant in practical settings (see [14, 15, 18, 21, 27] and references therein). Strictly speaking, our
+result holds under a more general assumption, where the best expert emerges after a time τ ∗instead
+of being apparent from the first round. This means that the best expert is even allowed to perform
+the worst for some rounds, as long as it performs well in sufficiently many other rounds. While we
+state and prove the result under this more general condition in Appendix F, we present the simpler
+assumption here for clarity.
+We now state our main result for the label complexity.
+Theorem 3. Consider the label-efficient exponentially weighted forecaster from Theorem 2 with
+qt = min(4A1,t(1 −A1,t) + η/3, 1) and any η > 0. Suppose that there exists a single best expert
+i∗such that, for all i ̸= i∗and all t ∈[n],
+Et[ℓi,t −ℓi∗,t] ≥∆> 0
+almost surely.
+Then, for any n ≥4, the expected label complexity is at most
+E[Sn] ≤
+50
+η∆2 ln
+N ln n
+η
+
++ 3ηn + 1 .
+(9)
+Proof sketch. Initially, the sampling probability qt is large, but as we collect more labels, it will
+become detectable that one of the experts is better than the others. As this happens, qt will tend to
+decrease until it (nearly) reaches its minimum value η/3. We therefore divide the forecasting process
+into time t ≤τ and t > τ. With a suitable choice of τ ≈1/(η∆2) (up to logarithmic factors), we
+can guarantee that the sampling probability is at most qt ≤4η/3 for all t > τ with sufficiently high
+probability. This is shown by controlling the deviations of the cumulative importance-weighted loss
+differences ˜Λi
+t = Pt
+j=1(li,j −li∗,j)/qj for i ̸= i∗from their expected values by using an anytime
+version of Freedman’s inequality. With this, we simply upper bound the label complexity for the
+first τ rounds by τ, and over the remaining rounds, the expected number of collected labels is roughly
+η(n −τ) ≤ηn. This leads to a total expected label complexity of 1/(η∆2) + ηn, up to logarithmic
+factors. The full proof is deferred to Appendix F.
+6
+As mentioned earlier, the learning rate optimizing the regret bound (7) is η =
+p
+8 ln(N)/n. For this
+particular choice, the label complexity in (9) is roughly √n/∆2, up to constants and logarithmic
+factors. We have thus established that the label-efficient forecaster achieves the best of both worlds:
+it queries sufficiently many labels in the worst case to obtain optimal regret guarantees, while
+simultaneously querying much fewer labels in more benign settings. It is interesting to note that
+the label complexity dependence of 1/∆2 on ∆is less benign than the dependence of the regret
+bound from, e.g., [34, Thm. 11], which is 1/∆. The underlying reason for this is that, while the
+two are similar, the label complexity is not directly comparable to the regret. In particular, the label
+complexity has much higher variance.
+The bound of Theorem 3 relies on setting the sampling probability qt to be the upper bound on q∗
+t
+from Lemma 2. This bound is clearly loose when q∗
+t is approximately zero, and one may wonder if
+the label complexity of the algorithm would be radically smaller when using a forecaster for which
+qt = q∗
+t instead. With the choice η =
+p
+8 ln(N)/n, which optimizes the bound in (7), it seems
+unlikely that the label complexity will substantially change, as numerical experiments suggest that
+the label complexity attained with qt set as q∗
+t or the corresponding upper bound from (8) appear to
+be within a constant factor. That being said, for larger values of η, the impact of using the upper
+bound in (8) is likely much more dramatic.
+6
+Numerical experiments
+To further assess the behavior of the label-efficient forecaster from Theorem 2, we consider a classical
+active learning scenario in a batch setting, for which there are known minimax rates for the risk under
+both active and passive learning paradigms. We will set the sampling probability to be
+qt = min(4A1,t(1 −A1,t) + η/3, 1) .
+Let Dn = ((Xt, Yt))n
+t=1 be an ordered sequence of independent and identically distributed pairs of
+random variables with joint distribution D. The first entry of (Xi, Yi) represents a feature, and the
+second entry is the corresponding label. The goal is to predict the label Yi ∈{0, 1} based on the
+feature Xi. Specifically, we want to identify a map (x, Dn) 7→ˆgn(x, Dn) ∈{0, 1} such that, for a
+pair (X, Y ) ∼D that is drawn independently from Dn, we have small (zero-one loss) expected risk
+Risk(ˆgn) := P(ˆgn(X, Dn) ̸= Y ) .
+Concretely, we consider the following scenario, inspired by the results in [14]. Let the features Xi be
+uniformly distributed in [0, 1], and Yi ∈{0, 1} be such that P(Yi = 1|Xi = x) = ζ(x). Specifically,
+let τ0 ∈[0, 1] such that ζ(x) ≥1/2 when x ≥τ0 and ζ(x) ≤1/2 otherwise. Furthermore, assume
+that for all x ∈[0, 1], ζ(x) satisfies
+c|x −τ0|κ−1 ≤|ζ(x) −1/2| ≤C|x −τ0|κ−1 ,
+for some c, C > 0 and κ > 1. If τ0 is known, the optimal classifier is simply g∗(x) = 1 {x ≥τ0}.
+The minimum achievable excess risk when learning ˆgn from Dn in this type of problems has been
+studied in, e.g., [14, 35]. For this setting, it is known that
+inf
+ˆgn
+sup
+τ0∈[0,1]
+Risk(ˆgn) −Risk(g∗) ≍n
+−κ
+2κ−1 ,
+as n →∞. However, rather than the classical supervised learning setting above, we can instead
+consider active learning procedures. Specifically, consider a sequential learner that can generate
+feature-queries X′
+i and sample a corresponding label Y ′
+i , such that P(Y ′
+i = 1|X′
+i = x) = ζ(x).
+This is often referred to as pool-based active learning. At time t, the learner can choose X′
+t as a
+function of the past ((X′
+j, Y ′
+j ))t−1
+j=1 according to a (possibly random) sampling strategy An. This
+extra flexibility allows the learner to carefully select informative examples to guide the learning
+process. Similarly to the passive learning setting, the ultimate goal is to identify a prediction rule
+(x, D′
+n) 7→ˆgA
+n (x, D′
+n) ∈{0, 1}, where D′
+n = ((X′
+t, Y ′
+t ))n
+t=1. In [14], it is shown that for this active
+learning setting, the minimax rates are also known, and given by
+inf
+ˆgA
+n ,An
+sup
+τ0∈[0,1]
+Risk(ˆgA
+n ) −Risk(g∗) ≍n
+−κ
+2κ−2 ,
+7
+0
+1
+2
+3
+4
+5
+·104
+0
+50
+100
+150
+200
+t
+E[Rt]
+Full information
+Label efficient
+(a)
+κ = 2
+0
+1
+2
+3
+4
+5
+·104
+0
+50
+100
+150
+200
+t
+E[Rt]
+Full information
+Label efficient
+(b)
+κ = 1.5
+0
+1
+2
+3
+4
+5
+·104
+0
+2,000
+4,000
+6,000
+8,000
+t
+E[St]
+(c)
+κ = 2
+0
+1
+2
+3
+4
+5
+·104
+0
+2,000
+4,000
+6,000
+8,000
+t
+E[St]
+(d)
+κ = 1.5
+Figure 2: Numerical results for expected regret and label complexity when n = 50000 and N = 225.
+Panels (a) and (b) depict the expected regret E[Rt] as a function of t, for κ = 2 and κ = 1.5
+respectively. Panels (c) and (d) depict the expected label complexity of the label-efficient forecaster,
+E[St], as a function of t for κ = 2 and κ = 1.5 respectively. The expectations were estimated
+from 500 independent realizations of the process and the shaded areas indicate the corresponding
+pointwise 95% confidence intervals.
+as n →∞. This shows that there are potentially massive gains for active learning, particularly
+when κ is close to 1. A natural question is whether similar conclusions hold for streaming active
+learning. In this setting, instead of selecting which example X′
+i to query, the learner observes the
+features (X1, . . . , Xn) sequentially, and decides at each time t whether or not it should query the
+corresponding label. This is analogous to the online prediction setting discussed in this paper.
+We now study this setting numerically. For the simulations, we use the specific choice
+ζ(x) = 1
+2 + 1
+2sign(x −τ0)|x −τ0|κ−1 ,
+to generate sequences (Y1, . . . , Yn), based on a sequence of features (X1, . . . , Xn) sampled from the
+uniform distribution on [0, 1]. Furthermore, we consider the class of N experts such that
+fi,t = 1
+
+Xt ≥i −1
+N −1
+
+,
+with i ∈[N] and t ∈[n].
+6.1
+Expected regret and label complexity
+In the simulations, we set τ0 = 1/2 and N = ⌈√n⌉+ 1 {⌈√n⌉is even}. This choice enforces that
+N is odd, ensuring the optimal classifier is one of the experts. Throughout, we set η =
+p
+8 ln(N)/n,
+which minimizes the regret bound (7). First, we investigate the expected regret relative to the optimal
+prediction rule for the label-efficient exponentially weighted forecaster with qt given by (8), and
+compare it with the corresponding regret for the full-information forecaster that collects all labels.
+Specifically, the regret at time t of a forecaster that predicts { ˆYj}n
+j=1 is given by
+E[Rt] =
+t
+X
+j=1
+E[ℓ( ˆYt, Yt) −ℓ(g∗(Xt), Yt)] .
+8
+100
+101
+102
+103
+104
+10−3
+10−2
+10−1
+E[St]
+E[Rt]
+t
+Full information
+Label efficient
+(a)
+κ = 2
+100
+101
+102
+103
+104
+10−3
+10−2
+10−1
+E[St]
+E[Rt]
+t
+Full information
+Label efficient
+(b)
+κ = 1.5
+Figure 3: Numerical results for the normalized regret as a function of the expected label complexity
+when n = 50000 and N = 225. The straight dotted lines are displayed for comparison, and have
+slopes given by −κ/(2κ −1) (full information) and −κ/(2κ −2) (label efficient). The expectations
+were estimated from 500 independent realizations of the process and the shaded areas indicate the
+corresponding pointwise 95% confidence intervals.
+Furthermore, to study the potential reduction in the number of collected labels, we also evaluate the
+expected label complexity E[St] of the label-efficient forecaster. To approximate the expectations
+above, we use Monte-Carlo averaging with 500 independent realizations. Further experimental details
+are given in Appendix G. The results are shown in Figure 2. We see that the regret is comparable
+for the full-information and label-efficient forecasters, albeit slightly higher for the latter. Since
+P(g∗(X) ̸= Y ) = 1
+2 −
+1
+κ2κ , the expected cumulative loss of the optimal classifier grows linearly
+with t. For instance, when κ = 2, we have Pt
+j=1 E[ℓ(g∗(Xt), Yt)] = 3t/8. Hence, the regret relative
+to the best expert is much smaller than the pessimistic (i.e., worst-case for adversarial environments)
+bound in (7). We also observe that the expected label complexity grows sub-linearly with t, as
+expected, and that E[Sn] ≪n, demonstrating that a good prediction rule can be learned with
+relatively few labels. When κ = 1.5, the number of collected labels is significantly smaller than
+when κ = 2. This is in line with the known minimax rates for active learning from [14]. To further
+examine this connection, we now turn to normalized regret.
+6.2
+Normalized regret relative to the number of samples
+To relate the results of the label-efficient forecaster with known minimax rates for active learning, we
+investigate the expected regret normalized by the number of samples. Specifically, let
+r(t) = 1
+t E[Rt] = 1
+t
+t
+X
+j=1
+E[ℓ( ˆYt, Yt) −ℓ(g∗(Xt), Yt)] .
+For the full-information forecaster, we expect that r(t) ≍t−κ/(2κ−1) as t →∞. The same holds
+for the label-efficient forecaster, but in this case, the relation between r(t) and the expected number
+of collected labels E[St] is more interesting. If the label-efficient forecaster performs optimally,
+we expect r(t) ≍E[St]−κ/(2κ−2) as t →∞. To examine this, we plot r(t) against E[St] (which
+equals t for the full-information forecaster) in logarithmic scales, so the expected asymptotic behavior
+corresponds to a linear decay with slopes given by −κ/(2κ −1) for the full-information forecaster
+and −κ/(2κ −2) for the label-efficient forecaster. This is shown in Figure 3 for κ = 1.5 and κ = 2.
+We see that the observed behavior is compatible with the known asymptotics for active learning,
+and similar results arise when considering different values of κ. More importantly, it appears that
+the label-efficient forecaster optimally adapts to the underlying setting. This is remarkable, as the
+label-efficient forecaster does not rely on any domain knowledge. Indeed, it has no knowledge of
+the statistical setting, and in particular, it has no knowledge of the parameter κ, which encapsulates
+the difficulty of the learning task. Note that our regret bounds are too loose to provide a theoretical
+justification of these observations via an online-to-batch conversion, and that such theoretical analyses
+will only be fruitful when considering non-parametric classes of experts, for which the asymptotics
+of the excess risk are ω(1/√n).
+9
+7
+Discussion and outlook
+In this paper, we presented a set of adaptive label-efficient algorithms. These follow from a very
+straightforward design principle, namely, identifying the smallest possible label collection probability
+qt that ensures that a known worst-case expected regret bound is satisfied. This leads to simple, yet
+powerful, algorithms, endowed with best-of-both-worlds guarantees. We conjecture that a similar
+approach can be used for a broader class of prediction tasks and losses than what is considered in this
+paper. For instance, the results we present can be straightforwardly extended to a setting where the
+expert outputs take values in [0, 1], as long as the label sequence and forecaster prediction remain
+binary and take values in {0, 1}. In fact, the same inductive approach can be used when yt ∈[0, 1]
+and one considers a general loss function. However, the resulting label collection probability will be
+significantly more complicated than that of Definition 1. An interesting side effect of our analysis
+is that it leads to an inductive proof of the regret bound for standard, full-information algorithms.
+Extending the label complexity result, and in particular connecting it with known minimax theory
+of active learning in statistical settings, remains an interesting avenue for future research. Finally,
+another intriguing direction is to extend our approach to the bandit setting. In the setting we consider
+in this paper, we observe the losses of all experts when observing a label. In contrast, in the bandit
+setting, only the loss of the selected arm would be observed for each round. This would necessitate
+the forecaster to incorporate more exploration in its strategy, and the analysis of a label-efficient
+version seems like it would be quite different from what is used in this paper, although some of the
+ideas may transfer.
+Acknowledgements
+The authors would like to thank Wojciech Kotłowski, Gábor Lugosi, and Menno van Eersel for
+fruitful discussions that contributed to this work. The algorithmic ideas underlying this work were
+developed when R. Castro was a research fellow at the University of Wisconsin – Madison. This
+work was partly done while F. Hellström was visiting the Eindhoven University of Technology and
+the University of Amsterdam supported by EURANDOM and a STAR visitor grant, the Wallenberg
+AI, Autonomous Systems and Software Program (WASP) funded by the Knut and Alice Wallenberg
+Foundation, and the Chalmers AI Research Center (CHAIR). T. van Erven was supported by the
+Netherlands Organization for Scientific Research (NWO), grant number VI.Vidi.192.095.
+References
+[1] Volodimir G. Vovk. Aggregating strategies. In Proc. Workshop on Computational Learning
+Theory (COLT), Rochester, NY, USA, 1990.
+[2] N. Littlestone and M.K. Warmuth. The weighted majority algorithm. Information and Compu-
+tation, 108(2):212–261, 1994.
+[3] N. Cesa-Bianchi and G. Lugosi. Prediction, Learning, and Games. Cambridge University Press,
+2006.
+[4] David Helmbold and Sandra Panizza. Some label efficient learning results. In Proc. Conference
+on Computational Learning Theory (COLT), Nashville, TN, USA, July 1997.
+[5] N. Cesa-Bianchi, A. Conconi, and C. Gentile. Learning probabilistic linear-threshold classifiers
+via selective sampling. In Proc. Conference on Learning Theory (COLT), Washington, DC,
+USA, Aug. 2003.
+[6] Bhuvesh Kumar, Jacob D Abernethy, and Venkatesh Saligrama. Activehedge: Hedge meets
+active learning. In Proc. International Conference on Machine Learning (ICML), Edinburgh,
+Scotland, June 2012.
+[7] Ofer Dekel, Claudio Gentile, and Karthik Sridharan. Selective sampling and active learning from
+single and multiple teachers. The Journal of Machine Learning Research, 13(1):2655–2697,
+2012.
+[8] Francesco Orabona and Nicolò Cesa-Bianchi. Better algorithms for selective sampling. In Proc.
+International Conference on Machine Learning (ICML), Bellevue, WA, USA, June 2011.
+10
+[9] Dirk van der Hoeven, Nikita Zhivotovskiy, and Nicoló Cesa-Bianchi. A regret-variance trade-off
+in online learning. In Proc. Conference on Neural Information Processing Systems (NeurIPS),
+New Orleans, LA, USA, Nov. 2022.
+[10] N. Cesa-Bianchi, G. Lugosi, and G. Stoltz. Minimizing regret with label efficient prediction.
+IEEE Transactions on Information Theory, 51(6):2152–2162, 2005.
+[11] D. J. C. Mackay. Information-based objective functions for active data selection. Neural
+Computation, 4:698–714, 1991.
+[12] D. Cohn, Z. Ghahramani, and M. Jordan. Active learning with statistical models. Journal of
+Artificial Intelligence Research, pages 129–145, 1996.
+[13] Y. Freund, H. S. Seung, E. Shamir, and N. Tishby. Selective sampling using the query by
+committee algorithm. Machine Learning, 28(2-3):133–168, Aug. 1997.
+[14] Rui M. Castro and Robert D. Nowak. Minimax bounds for active learning. Transactions on
+Information Theory, 54(5):2339–2353, Apr. 2008.
+[15] N. Balcan, A. Beygelzimer, and J. Langford. Agnostic active learning. In Proc. International
+Conference on Machine Learning (ICML), Pittsburgh, PA, USA, June 2006.
+[16] Alina Beygelzimer, Sanjoy Dasgupta, and John Langford. Importance weighted active learning.
+In Proc. International Conference on Machine Learning (ICML), Montreal, June 2009.
+[17] R. Castro, R. Willett, and R. Nowak. Faster rates in regression via active learning. In Proc.
+Conference on Neural Information Processing Systems (NeurIPS), 2005. extended version
+available at http://homepages.cae.wisc.edu/∼rcastro/ECE-05-3.pdf.
+[18] S. Dasgupta, A. Kalai, and C. Monteleoni. Analysis of perceptron-based active learning. In
+Proc. Conference on Learning Theory (COLT), Bertinoro, Italy, June 2005.
+[19] S. Dasgupta. Coarse sample complexity bounds for active learning. In Proc. Conference on
+Neural Information Processing (NeurIPS), Vancouver, Canada, Dec. 2005.
+[20] M. F. Balcan, C. Berlind, A. Blum, E. Cohen, K. Patnaik, and L. Song. Active learning and best-
+response dynamics. In Proc. Conference on Neural Information Processing Systems (NeurIPS),
+Montreal, Canada, Dec. 2014.
+[21] P. Awasthi, M. Balcan, and P. M. Long. The power of localization for efficiently learning linear
+separators with noise. In Proc. Annual ACM Symposium on Theory of Computing (STOC), New
+York, NY, USA, June 2014.
+[22] A. Krause and C. Guestrin. Nonmyopic active learning of Gaussian processes: An exploration-
+exploitation approach. In Proc. International Conference on Machine Learning (ICML), 2007.
+[23] X. Zhu, J. Lafferty, and Z. Ghahramani. Combining active learning and semi-supervised learning
+using Gaussian fields and harmonic functions. In Workshop on The Continuum from Labeled to
+Unlabeled Data in Machine Learning and Data Mining, ICML, Washington, D.C., USA, Aug.
+2003.
+[24] J. L. Williams, J. W. Fisher, and A. S. Willsky. Performance guarantees for information theoretic
+active inference. In Proc. International Conference on Artificial Intelligence and Statistics
+(AISTATS), San Juan, Puerto Rico, Mar. 2007.
+[25] B. Chen, R. Castro, and A. Krause. Joint optimization and variable selection of high-dimensional
+gaussian processes. In Proc. International Conference on Machine Learning (ICML), Edinburgh,
+Scotland, July 2012.
+[26] A. Epshteyn, A. Vogel, and G. DeJong. Active reinforcement learning. In Proc. International
+Conference on Machine Learning (ICML), Helsinki, Finland, July 2008.
+[27] Steve Hanneke. Theory of disagreement-based active learning. Foundations and Trends in
+Machine Learning, 7(2-3):131–309, 2014.
+11
+[28] Nicoló Cesa-Bianchi, Claudio Gentile, and Luca Zaniboni. Worst-case analysis of selective
+sampling for linear classification. Journal of Machine Learning Research, 7(44):1205–1230,
+2006.
+[29] Peilin Zhao, Steven Hoi, and Jinfeng Zhuang. Active learning with expert advice. In Proc.
+Uncertainty in Artificial Intelligence (UAI), Bellevue, WA, USA, July 2013.
+[30] Shuji Hao, Peiying Hu, Peilin Zhao, Steven C. H. Hoi, and Chunyan Miao. Online active
+learning with expert advice. ACM Trans. Knowl. Discov. Data, 12(5), June 2018.
+[31] Yining Chen, Haipeng Luo, Tengyu Ma, and Chicheng Zhang. Active online learning with
+hidden shifting domains. In Proc. International Conference on Artificial Intelligence and
+Statistics (AISTATS), San Diego, CA, USA, Aug. 2021.
+[32] Boshuang Huang, Sudeep Salgia, and Qing Zhao. Disagreement-based active learning in online
+settings. IEEE Transactions on Signal Processing, 70:1947–1958, Mar. 2022.
+[33] Sébastien Bubeck and Nicolò Cesa-Bianchi. Regret analysis of stochastic and nonstochastic
+multi-armed bandit problems. Foundations and Trends in Machine Learning, 5(1), 2012.
+[34] Pierre Gaillard, Gilles Stoltz, and Tim van Erven. A second-order bound with excess losses. In
+Proc. Conference on Learning Theory (COLT), Barcelona, Spain, June 2014.
+[35] A. B. Tsybakov. On nonparametric estimation of density level sets. Annals of Statistics,
+25:948–969, 1997.
+[36] A.R. Karlin and Y. Peres. Game Theory, Alive. American Mathematical Society, 2017.
+[37] Alexander Rakhlin, Ohad Shamir, and Karthik Sridharan. Making gradient descent optimal for
+strongly convex stochastic optimization, 2011.
+[38] Alexander Rakhlin, Ohad Shamir, and Karthik Sridharan. Making gradient descent optimal
+for strongly convex stochastic optimization. In Proc. International Conference on Machine
+Learning (ICML), Edinburgh, Scotland, UK, June 2012.
+12
+A
+Proof of Theorem 1
+Theorem 1. Consider the exponentially weighted follow the majority forecaster with η = ∞.
+Specifically, let pt = 1 {A1,t ≥1/2}, so that ˆyt = 1 {A1,t ≥1/2}. Furthermore, let
+qt =
+(
+0
+if A1,t ∈{0, 1},
+−
+1
+log2 min(A1,t,1−A1,t)
+otherwise.
+For this forecaster, we have
+¯L(N)
+n
+≤log2 N .
+Proof. The main idea is to proceed by induction on n. For n = 1, the result holds trivially, regardless
+of the choice for qt. Now, suppose that ¯L(N)
+t
+≤log2 N for all values t ∈[n −1], any sequence of
+observations and expert predictions, and any number of experts N. Based on this assumption, we
+will derive a bound for ¯L(N)
+n
+. Let k := PN
+i=1 ℓi,1 be the number of experts that make a mistake when
+t = 1. Note that 0 ≤k ≤N −1, as there is one perfect expert. When k < N/2, the majority vote ˆy1
+is necessarily equal to y1. Therefore,
+¯L(N)
+n
+= E[ℓ(ˆy1, y1)] +
+n
+X
+t=2
+E[ℓ(ˆyt, yt)] =
+n
+X
+t=2
+E[ℓ(ˆyt, yt)]
+=
+n
+X
+t=2
+q1E[ℓ(ˆyt, yt)|Z1 = 1] + (1 −q1)E[ℓ(ˆyt, yt)|Z1 = 0]
+= q1 ¯L(N−k)
+2:n
++ (1 −q1)¯L(N)
+2:n
+≤log2 N ,
+(10)
+where ¯L(N)
+2:n denotes the expected cumulative loss in rounds 2, . . . , n with N experts. Because the
+internal state of the algorithm only consists of a list of experts that have made no errors so far, the task
+in rounds 2, . . . , n is equivalent to a task over n −1 rounds starting with the experts that remain after
+round 1. Therefore, we can apply the induction hypothesis to obtain ¯L(N−k)
+2:n
+≤log2(N−k) ≤log2 N
+and ¯L(N)
+2:n ≤log2 N, which justifies the last inequality. We conclude that, when k < N/2, the bound
+holds regardless of the choice of q1.
+On the other hand, if N/2 ≤k ≤N −1, the forecaster incurs an error at time t = 1. Using the
+induction hypothesis and an analogous reasoning as above, we find that
+¯L(N)
+n
+= 1 + q1 ¯L(N−k)
+2:n
++ (1 −q1)¯L(N)
+2:n ≤1 + q1 log2(N −k) + (1 −q1) log2(N) .
+(11)
+To ensure that the right-hand-side of (11) satisfies the desired bound, we need to select q1 such that
+1 + q1 log2(N −k) + (1 −q1) log2(N) ≤log2 N ,
+which can be written equivalently as
+1
+q1
+≤log2 N −log2(N −k) .
+If we do not observe a label, we do not know the value k. All we know is that, since y1 ∈{0, 1}, we
+have k ∈
+nPN
+i=1 fi,1, N −PN
+i=1 fi,1
+o
+. Therefore, to ensure the induction proof works, we need
+q1 ≥−
+1
+log2 min (A1,1, 1 −A1,1) ,
+where A1,1 =
+1
+N
+PN
+i=1 fi,1. Note that the case k = N cannot occur as there is always a perfect
+expert, but to ensure that the above definition is sound, we define q1 = 0 when A1,1 ∈{0, 1}.
+13
+B
+Label-efficient boosted majority of leaders
+Through a variation of follow the majority, a slightly better regret bound than the one in Theorem 1
+can be obtained, as well as a matching lower bound. As shown by [36, Proposition 18.1.3], there exists
+an adversarial strategy for the environment such that any forecaster will incur at least ⌊log2 N⌋/2 ≥
+⌊log4 N⌋errors in expectation. A matching upper bound can be obtained, when N is a power of two,
+by considering a forecaster that incorporates randomness in its predictions. This is referred to as
+the boosted majority of leaders. As shown in the following theorem, this procedure can be made
+label-efficient while ensuring the same expected regret bound.
+Theorem 4. Consider an exponentially weighted forecaster for which η = ∞and
+pt =
+
+
+
+
+
+0
+if A1,t ≤1/4
+1 + log4 A1,t
+if 1/4 < A1,t ≤1/2
+−log4(1 −A1,t)
+if 1/2 < A1,t ≤3/4
+1
+if A1,t > 3/4
+and
+qt =
+
+
+
+
+
+
+
+
+
+0
+if A1,t = 0
+−1/ log4 A1,1
+if 0 < A1,t < 1/4
+1
+if 1/4 ≤A1,t ≤3/4
+−1/ log4(1 −A1,1)
+if 3/4 < A1,t < 1
+0
+if A1,t = 1
+.
+For this forecaster, we have
+¯L(N)
+n
+≤log4 N .
+Proof. The proof technique is analogous to that of Theorem 1: we use an induction argument to find
+a choice of qt that guarantees the desired regret bound. We will proceed by analyzing different cases,
+depending on the value of A1,t. First, assume that A1,1 ≤1/4. If y1 = 0, then
+¯L(N)
+n
+= 0 + q1 ¯L(N(1−A1,1))
+2:n
++ (1 −q1)¯L(N)
+2:n .
+Thus, taking q1 ≥0 suffices. If y1 = 1, then
+¯L(N)
+n
+= 1 + q1 ¯L(NA1,1)
+2:n
++ (1 −q1)¯L(N)
+2:n ,
+and, using the same reasoning as before, it suffices to take
+q1 ≥−
+1
+log4 A1,1
+.
+An analogous reasoning applies when A1,1 > 3/4, so that for this case, it suffices to take
+q1 ≥−
+1
+log4(1 −A1,1) .
+Now, consider the case 1/4 < A1,1 ≤1/2. If y1 = 0, then
+¯L(N)
+n
+= 1 + log4 A1,1 + q1 ¯L(N(1−A1,1))
+2:n
++ (1 −q1)¯L(N)
+2:n
+≤1 + log4 A1,1 + q1 log4(N(1 −A1,1)) + (1 −q1) log4 N ,
+which implies that
+q1 ≥−1 + log4 A1,1
+log4(1 −A1,1) .
+Similarly, if y1 = 1, we must have
+q1 ≥−−log4 A1,1
+log4 A1,1
+= 1 .
+Since we do not know y1 before the decision, the only possibility is to take q1 = 1.
+A similar reasoning applies to the case 1/2 < A1,1 ≤3/4. Therefore, the above relations determine
+the expression for qt in the theorem, while enforcing the desired regret bound.
+14
+C
+Proof of Theorem 2
+As mentioned after Theorem 2, an analogous result holds for non-uniform weight initializations. We
+will state and prove this more general result below, from which Theorem 2 as stated in the main text
+follows as a special case.
+Theorem 2 (with non-uniform weight initialization). Consider an exponentially weighted forecaster
+with initial weight vector w·,0 = (w1,0, . . . , wN,0) such that P
+i∈[N] wi,0 = 1, pt = A1,t and
+qt ≥q∗(A1,t, η) := q∗
+t .
+For this forecaster, we have
+E
+h
+L(w·,0)
+n
+i
+≤E
+
+min
+i∈[N]
+
+Li,n −ln wi,0
+η
+
++ nη
+8 .
+(12)
+where the superscript in L(w·,0)
+n
+:= Pn
+t=1 ℓ(ˆyt, yt) makes the dependence on the initial weights
+explicit. In particular, for the choice of initial weights wi,0 := 1/N for all i ∈[N], we have
+¯Rn = E[Ln] −E
+
+min
+i∈[N] Li,n
+
+≤ln N
+η
++ nη
+8 .
+Proof. The proof strategy is similar to that used in Theorem 1. We begin by noting that at time t,
+the internal state of the label-efficient exponentially weighted forecaster is determined by the weight
+vector w·,t−1 = (w1,t−1, . . . , wN,t−1). Therefore, it suffices to focus on the requirements for q1 for
+an arbitrary weight vector. As in Theorem 1, we proceed by induction on n.
+For n = 1, the theorem statement is trivially true, as this algorithm coincides with the ordinary
+exponentially weighted forecaster (also, the right-hand-side of (12) is bounded from below by 1/2).
+Proceeding by induction in n, suppose (12) holds for 1, . . . , n −1 outcomes. Let ¯L(w·,0)
+n|1
+denote the
+expected cumulative loss of the forecaster given (y1, {fi,1}N
+i=1), i.e., the true label and the expert
+predictions for time t = 1:
+¯L(w·,0)
+n|1
+= E
+h
+L(w·,0)
+n
+ y1, {fi,1}N
+i=1
+i
+.
+Then, we have
+¯L(w·,0)
+n|1
+= E
+
+ℓ(ˆy1, y1) | y1, {fi,1}N
+i=1
+
++ E
+" n
+X
+t=2
+ℓ(ˆyt, yt)
+ y1, {fi,1}N
+i=1
+#
+= A1,1+(1−2A1,1)y1 + q1E
+" n
+X
+t=2
+ℓ(ˆyt, yt)
+ Z1 =1, y1, {fi,1}N
+i=1
+#
++ (1−q1)E
+" n
+X
+t=2
+ℓ(ˆyt, yt)
+ Z1 =0, y1, {fi,1}N
+i=1
+#
+≤A1,1 + (1 −2A1,1)y1 + q1 ¯L(w·,1)
+n−1
++ (1 −q1)¯L(w·,0)
+n−1
+.
+In order to prove the desired result, it is enough to show that
+¯L(w·,0)
+n|1
+≤E
+
+min
+i∈[N]
+
+ℓi,1 + Li,2:n −ln wi,0
+η
+
++ nη
+8 = E
+
+ℓi′,1 + Li′,2:n −ln wi′,0
+η
+
++ nη
+8 .
+Here, we let Li,2:n := Pn
+t=2 ℓi,t and let i′ denote the arg min of the right-hand side. Now, using the
+induction hypothesis, we obtain
+¯L(w·,0)
+n|1
+≤A1,1 + (1 −2A1,1)y1 + (n −1)η
+8
++ E
+
+min
+i∈[N]
+
+Li,2:n + q1
+−ln wi,1
+η
++ (1 −q1)−ln wi,0
+η
+
+≤A1,1 + (1 −2A1,1)y1 + (n −1)η
+8
++ E
+
+Li′,2:n + q1
+−ln wi′,1
+η
++ (1 −q1)−ln wi′,0
+η
+
+.
+15
+In the last step, we used the fact that since the upper bound holds for the minimum i, it holds for i′ in
+particular. To ensure that the bound in the theorem holds, it is thus sufficient to select A1,1 such that
+it satisfies
+A1,1 + (1 −2A1,1)y1 +
+q1
+η (ln wi′,0 −ln wi′,1) −ℓi′,1
+
+≤η
+8 .
+Notice that, after the first observation, we are back in a situation similar to that at time t = 1, but
+possibly with a different weight vector. Specifically, for i ∈[N],
+wi,1 =
+wi,0e−ηℓi,1/q1
+PN
+i=1 wi,0e−ηℓi,1/q1 .
+It is important at this point that wi,1 depends on the choice q1, so we cannot simply solve the above
+equation for q1. To proceed, it is easier to consider the two possible values of y1 separately.
+Case y1 = 0:
+Note that
+wi,1 =
+wi,0e−ηℓ(fi,1,y1)/q1
+1 −A1,1 + A1,1e−η/q1 .
+Therefore, it suffices to have
+A1,1 + q1
+η ln
+
+1 −A1,1 + A1,1e−η/q1
+≤η
+8 .
+(13)
+Case y1 = 1:
+Similarly as above,
+wi,1 =
+wi,0e−ηℓ(fi,1,y1)/q1
+A1,1 + (1 −A1,1)e−η/q1 .
+Therefore, it suffices to have
+1 −A1,1 + q1
+η ln
+
+A1,1 + (1 −A1,1)e−η/q1
+≤η
+8 .
+(14)
+As we do not know the values of y1 when computing q1, we must simultaneously satisfy (13) and
+(14). Nevertheless, these two conditions involve only η and A1,1. Thus, we can identify the range
+of values that q1 can take, as a function of η and A1,1, while still ensuring the desired regret bound.
+Specifically, we require that q1 ≥q∗
+1, where
+q∗
+1 := q∗
+1(A1,1, η) = inf
+
+q ∈(0, 1] : A1,1 + q
+η ln
+
+1 −A1,1 + A1,1e−η/q
+≤η
+8,
+1 −A1,1 + q
+η ln
+
+A1,1 + (1 −A1,1)e−η/q
+≤η
+8
+
+.
+At this point, it might be unclear if q∗
+1 is well defined, namely, if there always exists q ∈[0, 1]
+satisfying both (13) and (14). This is indeed the case, as shown in Lemma 1. By noting that
+E[¯L(w·,0)
+i,n|1 ] = ¯L(w·,0)
+i,n
+, we have completed the induction step.
+As stated at the beginning of the proof, looking at q1 suffices to determine the general requirements
+for qt, concluding the proof. The statement given in (7) follows from instantiating the general result
+with uniform initial weights.
+D
+Proof of Lemma 1
+Lemma 1. For all η > 0 and x ∈[0, 1], we have
+1 ∈
+
+q ∈(0, 1] : x + q
+η ln
+
+1 −x + xe−η/q
+≤η
+8
+
+.
+Proof. Let B ∼Ber(x), with x ∈[0, 1]. Note that E[e−ηB] = (1 −x) + xe−η. Note also that, by
+[3, Lem. A.1] we have ln E[e−ηB] ≤−ηx + η2/8. Putting these two facts together we conclude that
+x + 1
+η ln
+ 1 −x + xe−η
+≤x −x + η/8 = η/8 .
+Therefore, the point 1 is always contained in Definition 1, concluding the proof.
+16
+E
+Proof of Lemma 2
+Lemma 2. For any x ∈[0, 1], we have
+lim
+η→0 q∗(x, η) = 4x(1 −x) .
+Furthermore, for any η > 0 and x ∈[0, 1],
+q∗(x, η) ≤min(4x(1 −x) + η/3, 1) .
+Proof. As already shown in Lemma 1, we know that q∗(x, η) ≤1. Let η > 0 be arbitrary. Note that
+q∗(x, η) needs to be a solution in q of the following equation:
+ηx + q ln(1 −x + xe−η/q)
+|
+{z
+}
+:=g(η)
+≤η2
+8 .
+(15)
+Note that limη→0 g(η) = 0, so we can extend the definition of g to 0 by continuity. Specifically,
+g(η) :=
+
+ηx + q ln(1 −x + xe−η/q)
+if η > 0
+0
+if η = 0
+.
+We proceed by using a Taylor expansion of g(η) around 0. Tedious, but straightforward computations
+yields
+g′(η) = ∂
+∂η g(η) = x
+
+1 −
+1
+x + (1 −x)eη/q
+
+;
+g′′(η) = 1
+q x(1 −x)
+eη/q
+(x + (1 −x)eη/q)2 ,
+and
+g′′′(ξ) = 1
+q2 (−τ + 3τ 2 −2τ 3) , with τ =
+xe−ξ/q
+1 −x + xe−ξ/q ,
+where ξ > 0. In conclusion,
+g(η) = g(0) + g′(0)η + g′′(0)η2
+2 + g′′′(ξ)η3
+6
+= 1
+q x(1 −x)η2
+2 + g′′′(ξ)η3
+6 .
+where ξ ∈[0, η]. At this point we can examine the structure of the solution of (15) when η →0.
+Note that q∗(x, η) necessarily satisfies
+g(η) =
+1
+q∗(x, η)x(1 −x)η2
+2 + o(η2) = η2
+8 ,
+implying that q∗(x, η) →4x(1 −x) as η →0, proving the first statement in the lemma.
+For the second statement in the lemma, one needs to more carefully control the error term g′′′(ξ). We
+begin by noting that τ ∈[0, x]. This implies that −τ + 3τ 2 −2τ 3 ≤x(1 −x) (this can be checked
+by algebraic manipulation1). Therefore, q∗(x, η) ≤q, where q is the solution of
+1
+q x(1 −x)η2
+2 + 1
+q2 x(1 −x)η3
+6 = η2
+8 .
+This is a simple quadratic equation in q, yielding the solution
+q = 2x(1 −x) +
+r
+(2x(1 −x))2 + 4
+3x(1 −x)η .
+Although the above expression is a valid upper bound on q∗(x, η), it is not a very convenient one. A
+more convenient upper bound can be obtained by noting that
+2x(1 −x) +
+r
+(2x(1 −x))2 + 4
+3x(1 −x)η ≤4x(1 −x) + η/3
+⇐⇒(2x(1 −x))2 + 4
+3x(1 −x)η ≤(2x(1 −x) + η/3)2
+⇐⇒4
+3x(1 −x)η ≤4
+3x(1 −x) + η2
+9 .
+Thus, we have q ≤4x(1 −x) + η/3, concluding the proof.
+1It suffices to check that the solutions in τ of −1 + 3τ −2τ 2 ≤1 −x, if they exist, satisfy τ ∈[0, x].
+17
+F
+Proof of Theorem 3
+In the proof of Theorem 3, we will require the following anytime version of Freedman’s inequality:
+Lemma 3. Let X1, . . . , Xn be a martingale difference sequence with respect to some filtration
+F1 ⊂· · · ⊂Fn and with |Xt| ≤b for all t almost surely. Let Σ2
+t = Pt
+j=1 E[X2
+j |Fj−1]. Then, for
+any δ < 1/e and n ≥4,
+P
+
+∃t ∈[n] :
+t
+X
+j=1
+Xj > 2 max
+
+2
+q
+Σ2
+t ln(1/δ), b ln(1/δ)
+	
+≤ln(n)δ .
+A proof of this result for the special case that Ft = σ(X1, . . . , Xt) can be found in [37, Lemma 3],
+which is an extended version of [38]. Their proof goes through unchanged for general filtrations.
+We are now ready to prove Theorem 3. As aforementioned, we will prove the result under a more
+general condition than given in the theorem statement. Specifically, instead of assuming that the best
+expert in expectation is apparent from the first round, we only require the best expert to emerge after
+a time τ ∗. This condition is given in a precise form in (17). Clearly, the assumption stated in the
+main text implies that the condition in (17) holds with τ ∗= 0.
+Theorem 3 (with the best expert emerging after a time τ ∗). Consider the label-efficient exponentially
+weighted forecaster from Theorem 2 with qt = min(4A1,t(1 −A1,t) + η/3, 1) and any η > 0.
+Define τ as
+τ =
+48 ln(1/δ2)
+η∆2
++ 2
+η∆ln
+N
+η
+
+.
+(16)
+Suppose that there exists a single best expert i∗and a time τ ∗≤τ such that, for all i ̸= i∗,
+1
+t
+t
+X
+j=1
+Et[ℓi,j −ℓi∗,j] ≥∆> 0
+almost surely for t ≥τ ∗.
+(17)
+Then, for any n ≥4, the expected label complexity is at most
+E[Sn] ≤
+50
+η∆2 ln
+N ln n
+η
+
++ 3ηn + 1 .
+Proof. Recall that the estimated losses are ˜ℓi,t = ℓi,tZt/qt. Let ˜Λi
+t = Pt
+j=1 ˜li,j −˜li∗,j denote the
+cumulative estimated loss relative to that of the best expert, and let ˜Λmin
+t
+= mini̸=i∗˜Λi
+t.
+Our argument separates the analysis in two regimes: Regime 1, where t ≤τ, and Regime 2, where
+t > τ. The specific choice of τ given above arises naturally later in the analysis. Regime 1, in
+which labels will be collected frequently, is expected to be relatively short, so we simply upper-bound
+Sτ ≤τ. It then remains to bound the number of collected labels in Regime 2. To this end, we need τ
+to be chosen such that
+qt ≤4η
+3
+for all t > τ
+(18)
+with probability at least 1 −δ1, where δ1 ∈(0, 1] will be fixed later. Let E denote the event that (18)
+holds. It then follows that the expected number of labels collected in Regime 2 is at most
+E[Sn −Sτ] = E
+h
+n
+X
+t=τ+1
+qt1 {E}
+i
++ E
+h
+n
+X
+t=τ+1
+qt1
+ ¯E
+	 i
+≤4
+3ηn Pr(E) + n Pr( ¯E) ≤4
+3ηn + nδ1 .
+All together, we arrive at the following bound on the expected label complexity:
+E[Sn] ≤τ + 4
+3ηn + nδ1 .
+(19)
+It remains to verify that the choice of τ in (16) leads to δ1 being sufficiently small. To this end, let
+A∗
+t :=
+P
+i:fi,t=fi∗,t wi,t−1
+PN
+i=1 wi,t−1
+18
+denote the weighted proportion of experts that agrees with the best expert at time t. Then
+A∗
+t+1 ≥
+wi∗,t
+PN
+i=1 wi,t
+=
+1
+1 + P
+i̸=i∗e−η˜Λi
+t ≥
+1
+1 + Ne−η˜Λmin
+t
+.
+Note that A1,t ∈{A∗
+t+1, 1 −A∗
+t+1}. Consequently,
+qt+1 ≤4A∗
+t+1(1 −A∗
+t+1) + η
+3 ≤4(1 −A∗
+t+1) + η
+3 ≤
+4
+1 + eη˜Λmin
+t /N
++ η
+3 .
+The desired condition from (18) is therefore satisfied if, for all i ̸= i∗,
+˜Λi
+t ≥1
+η ln
+N
+η
+
+for all t = τ, . . . , n −1.
+(20)
+To study the evolution of ˜Λi
+t, we use a martingale argument. Consider any fixed i ̸= i∗, and define
+the martingale difference sequence
+Xt = −(˜ℓi,t −˜ℓi∗,t) + Et[˜ℓi,t −˜ℓi∗,t] = −(ℓi,t −ℓi∗,t)Zt
+qt
++ Et[ℓi,t −ℓi∗,t] .
+Without loss of generality, we may assume that η ≤3, because otherwise (19) holds trivially for any
+pair of τ and δ1. Then qt ≥η/3, |Xt| ≤2/qt ≤6/η, and
+E[X2
+t |Ft−1] ≤E
+h
+(˜ℓi,t −˜ℓi∗,t)2|Ft−1
+i
+= E
+h(ℓi,t −ℓi∗,t)2
+qt
+|Ft−1
+i
+≤3
+η .
+Hence, by Lemma 3, we have
+˜Λi
+t ≥
+t
+X
+j=1
+Et[ℓi,t −ℓi∗,t] −max
+
+4
+r3t
+η ln(1/δ2), 12
+η ln(1/δ2)
+	
+for all t ∈[n] .
+(21)
+Using Assumption (17), it follows that
+˜Λi
+t ≥t∆−max
+
+4
+r3t
+η ln(1/δ2), 12
+η ln(1/δ2)
+	
+for all t ≥τ ∗
+(22)
+with probability at least 1 −(ln(n)δ2) for any δ2 ∈(0, 1/e]. By taking δ2 = min{δ1/(N ln n), 1/e}
+and applying the union bound, we can make (22) hold for all i ̸= i∗simultaneously with probability
+at least 1 −δ1. A sufficient condition for (22) to imply (20) is then to take
+τ =
+48 ln(1/δ2)
+η∆2
++ 2
+η∆ln
+N
+η
+
+,
+matching the definition in (16). We prove this claim in Lemma 4 below. Note that if our choice of
+τ > n, then (19) still holds trivially, because Sn ≤n. Evaluating (19) with the given choice of τ
+and taking δ1 = η (assuming η < 1, since (19) holds trivially if δ1 ≥1), we arrive at the following
+bound:
+E[Sn] ≤
+48 ln(1/δ2)
+η∆2
++ 2
+η∆ln
+N
+η
+
++ 4
+3ηn + nδ1
+≤48 ln(N ln(n)/δ1)
+η∆2
++ 2
+η∆ln
+N
+η
+
++ 4
+3ηn + nδ1 + 1
+= 48 ln(N ln(n)/η)
+η∆2
++ 2
+η∆ln
+N
+η
+
++ 4
+3ηn + ηn + 1
+≤50 ln(N ln(n)/η)
+η∆2
++ 3ηn + 1 ,
+thus completing the proof.
+19
+Lemma 4. Assume that
+˜Λi
+t ≥t∆−max
+
+4
+r3t
+η ln(1/δ2), 12
+η ln(1/δ2)
+	
+for all
+t ≤n .
+Then, with
+τ =
+48 ln(1/δ2)
+η∆2
++ 2
+η∆ln
+N
+η
+
+,
+we have
+˜Λi
+t ≥1
+η ln
+N
+η
+
+for all
+t = τ, . . . , n −1 .
+Proof. We will consider the two possible outcomes of the maximum separately. First, we consider
+the case where the first term is the maximum. Then, we need to find τ such that for t ≥τ,
+˜Λi
+t ≥t∆−4
+r3t
+η ln(1/δ2) −1
+η ln
+N
+η
+
+≥0 .
+A straightforward calculation shows that this is satisfied for
+t ≥
+p
+48 ln(1/δ2) + 4∆ln(N/η) + 4
+p
+3∆ln(1/δ2)
+2
+4η∆2
+.
+Since (a + b)2 ≤2a2 + 2b2 for a, b > 0, this is satisfied given the simpler condition
+t ≥
+ 48
+η∆2 ln(1/δ2) + 2
+η∆ln
+N
+η
+
+= τ .
+Next, we assume that the second term is the maximum. Then, we have
+˜Λi
+t ≥t∆−12
+η ln(1/δ2)
+≥τ∆−12
+η ln(1/δ2)
+=
+48 ln(1/δ2)
+η∆2
++ 2
+η∆ln
+N
+η
+
+∆−12
+η ln(1/δ2)
+≥48 ln(1/δ2)
+η∆
++ 2
+η ln
+N
+η
+
+−12 ln(1/δ2)
+η∆
+≥2
+η ln
+N
+η
+
+,
+where we used the assumption that t ≥τ. Thus, for this case, the desired condition holds with the
+specified τ. Therefore, with the specified τ, the desired statement holds for t = τ, . . . , n −1.
+G
+Experimental details
+In this section, we describe the simulation study in Section 6 in detail. The full code, which can be
+executed in less than one hour on an M1 processor, is provided in the supplementary material.
+We consider a sequential prediction problem with n = 50000 total rounds and N = 225 experts.
+The number of experts is chosen to be higher than √n and odd. Then, we repeat the following
+simulation for 500 independent runs. First, we generate n independent features {Xi}i∈[n] from the
+uniform distribution on [0, 1]. Then, for each feature Xi, we randomly generate a label Yi, where the
+probability P(Yi = 1|Xi = x) = ζ(x), where
+ζ(x) = 1
+2 + 1
+2sign(x −1/2)|x −1/2|κ−1 .
+Note that the optimal prediction of the label is simply 1 {x ≥1/2}. We run simulations both
+for κ = 1.5 and κ = 2.
+20
+We set the experts to be threshold classifiers, with thresholds uniformly spaced across [0, 1]. Specifi-
+cally, for all i ∈[N] and t ∈[n],
+fi,t = 1
+
+Xt ≥i −1
+N −1
+
+.
+In order to optimize the regret bound in (7), we set η =
+p
+8 ln(N)/n. For each time t ∈[n], we
+consider two different weight vectors: {wP
+i,t}i∈[N], corresponding to the passive, full-information
+forecaster, and {wA
+i,t}i∈[N], corresponding to the active, label-efficient forecaster. The weight for
+each expert for both forecasters is uniformly initialized as wP
+i,0 = wA
+i,0 = 1/N.
+Then, for each timestep t ∈[n], we proceed as follows. First, we compute the probability of
+prediction the label 1 for each forecaster, given by pP
+t for the full-information forecaster and pA
+t for
+the label-efficient forecaster, as
+pP
+t = AP
+1,t =
+PN
+i=1 wP
+i,t−1fi,t
+PN
+i=1 wP
+i,t−1
+,
+pA
+t = AA
+1,t =
+PN
+i=1 wA
+i,t−1fi,t
+PN
+i=1 wA
+i,t−1
+,
+where the expert predictions are computed based on Xt. Here, the weighted proportion of experts
+that predict the label 1 are given by AP
+1,t for the full-information forecaster and AA
+1,t for the label-
+efficient forecaster. On the basis of this, each forecaster issues a prediction for the label, given
+by ˆyP
+t ∼Ber(pP
+t ) for the full-information forecaster and ˆyA
+t ∼Ber(pA
+t ) for the label-efficient one.
+Finally, the weights for each forecaster are updated as follows. For the full-information forecaster,
+the weight assigned to each expert is updated as
+wP
+i,t = wP
+i,t−1 e−ηℓi,t ,
+(23)
+where ℓi,t = 1 {fi,t ̸= Yt}. In order to determine whether the label-efficient forecaster observes a
+label or not, we compute qt = min(4AA
+1,t(1 −AA
+1,t) −η/3, 1) and generate Zt ∼Ber(qt). Then, the
+weights of the label-efficient forecaster are updated as
+wA
+i,t = wA
+i,t−1 e−η
+ℓi,tZt
+qt
+.
+(24)
+Hence, if Zt = 0, the weights of the label-efficient forecaster are not updated, since the label is not
+observed.
+After all n rounds have been completed, we compute the regret of the full-information forecaster RP
+n
+and the label-efficient forecaster RA
+n as
+RP
+n =
+n
+X
+t=1
+1
+
+ˆyP
+t ̸= Yt
+	
+−1 {y∗
+t ̸= Yt} ,
+RA
+n
+=
+n
+X
+t=1
+1
+
+ˆyA
+t ̸= Yt
+	
+−1 {y∗
+t ̸= Yt} .
+Here, for each t ∈[n], the optimal prediction is given by y∗
+t = 1 {Xt ≥1/2}. Furthermore, we
+compute the label complexity Sn as
+Sn =
+n
+X
+t=1
+Zt .
+The results of these simulations are presented in Figure 2 and 3.
+21

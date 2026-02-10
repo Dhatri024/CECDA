@@ -1,0 +1,16 @@
+paper_id,claim_text,csv_score,ebv_score,annotator
+0001ca33ba34ce0351e4612b744b3936,We propose SAMS-VAE to combine compositionality disentanglement interpretability,MEDIUM,HIGH,Dhatri
+0001ca33ba34ce0351e4612b744b3936,SAMS-VAE outperforms comparable models on ID and OOD generalization tasks,HIGH,HIGH,Dhatri
+0001ca33ba34ce0351e4612b744b3936,SAMS-VAE yields interpretable latent structures correlating to known biological mechanisms,MEDIUM,HIGH,Dhatri
+001608167bb652337af5df0129aeaabd,We present a new algorithm Cross-Episodic Curriculum (CEC) to boost learning efficiency and generalization of Transformer agents,MEDIUM,HIGH,Dhatri
+001608167bb652337af5df0129aeaabd,CEC constructs curricula that encapsulate learning progression and proficiency increase across episodes,MEDIUM,HIGH,Dhatri
+001608167bb652337af5df0129aeaabd,Policies resulting from CEC exhibit superior performance and strong generalization in all instances,HIGH,HIGH,Dhatri
+0021c2cb1b9b6a71ac478ea52a93b25a,The paper introduces PaintSeg a new unsupervised method for segmenting objects without any training,HIGH,HIGH,Dhatri
+0021c2cb1b9b6a71ac478ea52a93b25a,Inpainting and outpainting allow the method to advance the segmentation mask toward ground truth without supervision or training,MEDIUM,HIGH,Dhatri
+0021c2cb1b9b6a71ac478ea52a93b25a,Experimental results demonstrate PaintSeg outperforms existing approaches across multiple prompt-based segmentation tasks,HIGH,HIGH,Dhatri
+002262941c9edfd472a79298b2ac5e17,We introduce Prompt-Transformer (P-Former) trained exclusively on linguistic data bypassing the need for image-text pairings,HIGH,HIGH,Dhatri
+002262941c9edfd472a79298b2ac5e17,Experiments reveal the framework significantly enhances performance of the BLIP-2 image-to-text baseline,HIGH,HIGH,Dhatri
+002262941c9edfd472a79298b2ac5e17,The framework is modality-agnostic and flexible validated by successful application in a video learning task,HIGH,HIGH,Dhatri
+00296c0e10cd24d415c2db63ea2a2c68,We propose a novel grid point selection scheme and adaptive stopping criterion with approximation error guarantee,HIGH,MEDIUM,Dhatri
+00296c0e10cd24d415c2db63ea2a2c68,We prove the proposed solution path approximates the exact solution path to arbitrary accuracy while saving computation,HIGH,MEDIUM,Dhatri
+00296c0e10cd24d415c2db63ea2a2c68,Numerical results corroborate the theoretical analysis,MEDIUM,MEDIUM,Dhatri

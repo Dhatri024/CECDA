@@ -1,0 +1,1031 @@
+IEEE EDUCATION SOCIETY SECTION
+Received 9 July 2024, accepted 9 August 2024, date of publication 14 August 2024, date of current version 26 August 2024.
+Digital Object Identifier 10.1109/ACCESS.2024.3443313
+Mapping Artificial Intelligence Integration in
+Education: A Decade of Innovation
+and Impact (2013–2023)—A
+Bibliometric Analysis
+MUHAMMAD AFZAAL
+1, XIAO SHANSHAN2, DONG YAN3, AND MUHAMMAD YOUNAS
+3
+1Institute of Corpus Studies and Applications, Shanghai International Studies University, Shanghai 220033, China
+2School of English Studies, Shanghai International Studies University, Shanghai 220033, China
+3School of Educational Technology, Beijing Normal University, Beijing 100875, China
+Corresponding author: Muhammad Younas (younaskherani@bnu.edu.cn)
+ABSTRACT Artificial Intelligence (AI) has garnered considerable attention from educators, policymakers,
+and scholars within the realms of education and social sciences, achieving notable historical significance.
+Employing bibliometric analysis, this paper aims to provide a comprehensive analysis of the most noticeable
+trend of using AI in education. The corpus comprises a dataset of publications sourced from Web of
+Science (WoS) and Scopus-indexed journals. It concentrates on contemporary scientific research and
+innovative methodologies within the education sector, particularly relevant to the intersection of education
+and technology in the AI era. The results reveal a significant rise in AI-related technological research
+beginning in 2018, with citations reaching their zenith in 2019. Furthermore, collaborative metrics indicate
+that the United States and China are leading in publication volume. In addition, the study highlights a rising
+interest in AI applications within education and healthcare, particularly in the context of the COVID-19
+pandemic.
+INDEX TERMS Artificial intelligence, education, technology, visualization, bibliometric analysis.
+I. INTRODUCTION
+The evolution of the global economy and society has
+significantly impacted by artificial intelligence (AI) and
+its applications, which have attracted widespread interest
+throughout the world. In addition, researchers in the field
+of artificial intelligence have mostly focused on a few
+key areas such as classical model-based machine learning,
+intelligence inspired by biology, intelligence gleaned from
+large amounts of data, intelligence based on simulations
+of the human mind, language sciences, intelligence based
+on perception, and even in education [1]. The educational
+artificial intelligence research may be broken down into
+four key conceptual domains: technical basis, technolog-
+ical breakthroughs, intelligent applications, and symbiotic
+The associate editor coordinating the review of this manuscript and
+approving it for publication was Ka Wai Gary Wong
+.
+integration [2]. Furthermore, there has been a significant rise
+on the use of sophisticated information and communication
+technologies, together with computational methodologies,
+within the domain of education and training. The significance
+of this was emphasized by the study carried out [3], [4]. Fur-
+thermore, it is expected that specialized artificial intelligence
+in education (AIED) technologies, which are specifically
+developed to improve learning and teaching, will have a
+significant impact on the future of education.
+Against this backdrop, this study employs bibliometric
+analysis to present an in-depth assessment of the research
+trends and important areas of interest within the field of AI
+during the previous decade [5]. Many studies have shown that
+the incorporation of artificial intelligence (AI) into educa-
+tional curricula is now in its nascent stages in several nations.
+For instance, China is prioritizing the implementation of AI
+curriculum by means of teacher education programs. In this
+VOLUME 12, 2024
+ 2024 The Authors. This work is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 License.
+For more information, see https://creativecommons.org/licenses/by-nc-nd/4.0/
+113275
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+particular context, the main subjects of interest in the field of
+artificial intelligence (AI) have received considerable atten-
+tion. These subjects include machine learning, data science,
+big data analysis, deep learning, and ethical issues. These
+themes have been extensively examined in studies [6], [7].
+The importance of the mobile computing and distributed
+technologies on the development of intelligent educational
+applications was thoroughly explored at the 10th Interna-
+tional Conference on Artificial Intelligence in Education. The
+authors further propose that ‘when considering the future
+trajectory of research in the domain of artificial intelligence
+(AI) in education’, it becomes apparent that interdisciplinary
+cooperation among specialists in computer science, statistics,
+education, cognition, and robotics will be essential.
+There has been a noticeable and constant increase in
+academic interest across a range of fields in recent years. Sig-
+nificantly, some developed countries such as US has assumed
+a prominent position in scholarly papers pertaining to the
+Internet of Things (IoT) in the field of education, as shown
+by the study [8]. Furthermore, China is a significant force in
+the field of artificial intelligence (AI) research as it pertains to
+the use of this technology in the context of high school pupils.
+The integration of artificial intelligence (AI) and robots into
+the field of Library and Information Science (LIS) is con-
+sidered crucial in light of the anticipated changes in skill
+demands and this approach is supported by the findings of
+these studies [9], [10].
+AI has not only gained popularity in education but also
+made substantial contributions to digital education research
+through the involvement of highly engaged individual sci-
+entists [11]. In addition, it is worth noting that artificial
+intelligence (AI) shows promise in providing tailored advice,
+assistance, and evaluation to students and instructors through-
+out the educational journey. This concept has been examined
+in the scholarly works [12], [13]. Although there has been
+a rise in the use of AI in interdisciplinary research, there
+are still challenges, potential hazards, and obstacles in the
+field of education. A study highlights their multifaceted
+and dynamic educational capabilities and significance of
+e-learning systems in the modern society [14]. The use of
+Internet of Things (IoT) technology in the field of edu-
+cation has generated significant attention and discussion
+among scholars and professionals, highlighting the profound
+impact it may have on the educational environment. Previous
+study present that ‘the advent of innovative computing tools
+has facilitated the development of more enriched learning
+experiences, promoted a spirit of discovery, and fostered
+cooperation among learners [15]. Moreover, the incorpora-
+tion of artificial intelligence (AI) technology into existing
+information systems presents significant opportunities for
+increasing educational results via improvement and innova-
+tion. The emphasis on technology and AI in education is
+evident in the study [16]. They propose that the availability
+of educational resources online, the automation of tasks to
+save teacher time, and the provision of learning assistance to
+enhance student involvement are driving positive changes in
+education.
+Many studies [17], [18] have further explored the use of
+information technology and computer science in the under-
+disciplined research in education. Reference [19] mention
+that ‘the field of information technology and computer sci-
+ence has seen significant progress, which has had a lasting
+impact on our everyday lives. The main research areas within
+this field focus on the advancement and assessment of the
+Technological Pedagogical Content Knowledge (TPACK)
+framework, the enhancement of teachers’ technological ped-
+agogical content knowledge in teacher education programs,
+the utilization of TPACK across various disciplines, digi-
+tal literacy, online communities, and the complex dynamics
+of motivation and belief. Zou et al. [20] discuss several
+dimensions and together enhance our comprehension of the
+dynamic educational environment.
+Therefore, many educators consider the use of AI in educa-
+tion a major contributing factor in achieving excellence. The
+issue of AI literacy has become a significant concern among
+educational authorities worldwide as they endeavor to equip
+the next generation with the essential skills and knowledge of
+recent technology.
+Another significant area of research identified by scholars,
+involves integrating gamification and e-learning for young
+learners. This emerging trend has not only heightened interest
+but also fostered the development of innovative approaches
+within the realm of educational research.
+References [21] and [22] have identified four prominent
+areas for future research, including customization, game
+aspects, learner styles, and learner engagement. These themes
+highlight the dynamic nature of educational approaches and
+technology, emphasizing the need for more investigation in
+these domains.
+In addition to the ramifications, the trend of AI in education
+has also turned to interest in the field of digital literacy,
+particularly in relation to the incorporation of digital tech-
+nology, ontology research, educational approaches pertaining
+to digital literacy, and assessments of effectiveness [23]. This
+interest has been particularly heightened in light of the Covid-
+19 epidemic. References [24] and [25] gives useful insights
+to scholars and suggests new directions for future investi-
+gations. For instance, technologies-enhanced learning (TEL)
+has arisen as a notable breakthrough, which has disrupted
+traditional teaching and learning methods by using informa-
+tion and communication technologies to improve educational
+results. Reference [26] underscore the significant transforma-
+tional capacity of Technology-Enhanced Learning (TEL) in
+the context of higher education.
+The studies above mentioned have highlighted that the
+trend in the usage of AI in education has emerged as a
+potential solution to solve the increasing issues encountered
+by contemporary education systems, as shown by many aca-
+demic works [27], [28]. These aforementioned issues have
+specifically hindered the ability to obtain education and
+113276
+VOLUME 12, 2024
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+engage in effective learning. The integration of artificial
+intelligence (AI) into the realm of education has led to the
+emergence and evaluation of novel pedagogical approaches in
+various settings. Hence, it is worth mentioning that sophisti-
+cated information and communication technologies, together
+with computational approaches, have been used in educa-
+tional and training environments.
+Based on the literature reviewed above, this study focuses
+on providing a comprehensive analysis of the progression of
+artificial intelligence (AI) research within the realm of higher
+education (HE). The study employs bibliometric analysis and
+topic modeling approaches, as described by [29] to offer
+insights into the changing dynamics of artificial intelligence
+in the field of education.
+The study aims to examine past trends, as the use of
+artificial intelligence has become a crucial factor influencing
+forthcoming strategic choices. According to [30] the augmen-
+tation and implementation of artificial intelligence (AI) skills
+are of utmost importance across many study disciplines. It is
+worth noting that current research has only offered a limited
+understanding of the widespread use of artificial intelligence
+(AI) in various areas of study.
+Recently, the domain of artificial intelligence (AI) has
+seen notable progressions and is positioned to revolutionize
+diverse facets of human existence. It is worth mentioning that
+artificial intelligence (AI) technology has begun to penetrate
+the field of higher education. Many recent studies have con-
+tributed to the proliferation of AI in the education sector. The
+proliferation of academic papers has followed the increasing
+use of Artificial Intelligence (AI) technology in the field of
+education. However, there is a gap in the literature as no
+extensive investigation covering the many aspects of this dis-
+cipline on a broad scope has been undertaken so far [31]. The
+latest studies highlight the latest advancements and research
+requirements, emphasizing the need for future initiatives that
+include extensive research partnerships and thorough exami-
+nations of intelligent educational strategies [32], [33]
+Considering recent advancements, the main aim of this
+study is to analyze patterns in publications and citations,
+prominent nations and affiliations, authorship status, preva-
+lent themes, thematic features, research interests, and devel-
+oping trends within the area. In doing so, the study provides
+a comprehensive understanding of the trajectories and conse-
+quences of artificial intelligence (AI) in the context of online
+learning, offering insights into global trends and identifying
+potential areas for future research.
+II. RESEARCH QUESTIONS
+This study endeavors to delineate a holistic understanding
+of the evolutionary trajectory, and research foci of AI within
+the field of education technology. Guided by a rigorous aca-
+demic framework, this study seeks to address the subsequent
+research questions:
+(1) What are the basic statistics concerning the annual
+production, citation for relevant publication source and
+authors?
+(2) Which collaborative metrices, manifested through
+nations, institutional affiliations, and scholarly contri-
+butions, are discernible in this academic domain?
+(3) How are the prevailing research epicenters, concen-
+trated foci and nascent paradigms, as reflected in the
+keyword co-occurrence networks and temporal key-
+word clusters?
+III. METHODS
+A. BIBLIOMETRIC TOOLS AND PARAMETRIC SETTING
+Bibliometrics is a widely used and ‘fast advancing tool in
+the field of intelligence research, namely in the evaluation of
+scientific themes’ [34], [35], [36], [37], [38], [39]. It employs
+quantitative analysis, ‘correlation networks, and statistics to
+examine the bibliographic and content data of papers in a
+specific topic [40], [41]. Furthermore, a wide reportoire of
+bibliometric studies across various fields (especially sciento-
+metrics) have yielded satisfactory results through conducting
+similar quantitative analysis [19], [42], [43], [44].
+Therefore, this study employs Bibliometrix tool (4.0.0) for
+the overall quantitative analysis of the bibliometric analysis of
+AI in education. The Bibliometric tool is based on R language
+and works on data extracted from Scopus, Clarivate Analytics
+Web of Science, Cochrane Database of Systematic Reviews
+(CDSR) and RIS Pubmed/Medline. Additionally, the study
+uses of Bilblioshiny (4.0) in conjunction with Bibliometrix
+for the visualization of ‘‘Authors’’ ‘‘Sources’’ ‘‘Documents’’
+‘‘Clustering’’, etc. Biblioshiny is a web-interface for bib-
+liometrix. It enables users to make a hands-on, code-free
+bibliometric analysis, including analytics/plots for different
+metrics, analysis for three structures of knowledge (K-
+structures). ( https://www.bibliometrix.org/home/index.php
+/layout/biblioshiny). In the workflow of Bibliometrix and
+Biblioshiny, the data collected are first loaded and converted
+to R data frame. Based the collected data, descriptive anal-
+ysis followed by bibliometric mapping are then conducted.
+Finally, Biblioshiny shows the data visualization including
+conceptual structure mapping and network mapping [45].
+Moreover, the study incorporated [46] VOSViewer for the
+visualization and mapping. VOSViewer offers open source
+solution, dedicated to the generation of intricate bibliometric
+mappings. Owing to VOSviewer’s capability to ‘‘illustrate
+expansive bibliometric maps with intruitive clarity’’ [47],
+[48], [49]. This software offers the crafting of co-occurrence
+networks and delineating country/ author collaboration met-
+rices. This function ensures that the large dataset is analyzed
+systematically and structures into lucid and visually com-
+pelling graphs. Finally, the study incorporates CiteSpace
+version 6.1 for the data handling and setting the metrics
+to analyze the trends and reflected patterns in the domain
+of AI in education. Citespace (6.1 R6), crafted on a Java-
+based application, stands as an intricate and robust tool for
+the bibliometric evaluation. Underpinned by burst detection
+algorithm [50] for identification of emergent research front,
+betweenness centrality [51] metric for detection of essential
+VOLUME 12, 2024
+113277
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+FIGURE 1. Flowchart of bibliometric analysis.
+paradigm shift points as well two visualization modes- - clus-
+ter views and time zone views, Citespace stands out as a
+composite bibliometric software well operationalizing the
+focal points of ‘‘research fronts’’ and ‘‘intellectual bases’’
+in information science [52]. Within its parametric configu-
+rations, the three-year time slice and ‘‘pruning’’ option in
+pathfinder are set while the other parameters remain default.
+B. DATA SOURCE AND DATA COLLECTION
+Web of Science (WOS), an all-encompassing database with
+more than 15,000 journal indexes and a volume of nearly
+50 million articles. Utilizing the WOS database, this study
+endeavors to retrieve publication metadata pertinent to AI
+education. The selection criteria are meticulously delimited
+to encompass solely the ‘‘editions = Social Science Cita-
+tion Index’’ only. The basic theme is articulated as ‘‘AI
+in education technology’’. The expanded theme has been
+designated, encapsulating terminologies such as ‘‘AI (in) edu-
+cation’’ ‘‘Artificial Intelligence (in) education’’ ‘‘Artificial
+Intelligence in Education (AIED) ’’ ‘‘ChatGPT’’ ‘‘Large Lan-
+guage Models’’ ‘‘Open AI’’ to ensure all possible keywords
+within this field are included. The chronological boundary
+for this is demarcated between the years 2009-2024 whereas
+linguistic parameters remain unbound. Overall, the study
+found 2216 articles as per the thematic criteria from the
+dataset. However, the total number of articles are reduced
+to 2101 as per the setting of article types such as ‘‘Article’’,
+‘‘Review Article’’ and ‘‘Review Article’’. The entire process
+encompassing data collection, parametric settings and data
+analysis is demonstrated in the flowchart in Figure 1.
+IV. RESULTS AND DISCUSSIONS
+A. BASIC PUBLICATION STATISTICS
+This section utilizes Bibliometrix and Bilioshiny to probe
+into the basic publication statistics within the research
+field of AI in education technology. Specifically, docu-
+ment type distribution, annual publications/ citations, relevant
+sources/authors/affiliations are to be examined meticulously
+in this part. As demonstrated in Table 1, a total of 2101 docu-
+ments scatter over a time span of 16 years from 2009 to 2024,
+coming from 963 sources. On average, each document is cited
+more than six times, and the cumulative number of references
+reaches up to 78,908.
+In figure 2, of the 2,101 documents, 85% are articles
+and 70% sing-authored individually comprise 70%, while
+the remainder are integrated into book chapters, proceedings
+113278
+VOLUME 12, 2024
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+FIGURE 2. Distribution of data type.
+papers, and early access collections. In stark contrast, review
+articles and book reviews make up no more than 15% of
+the entire collection. Figure 3 demonstrates yearly based an
+overall evolving trend from 2009 to 2023. In the first decade
+starting from 2009 to 2018, the evolving line of publication
+remains flat, which indicates that research in this field is at
+the initial stage.
+Subsequent years witness a marked ascent of publication
+from 17 (2018) to 1223 (2023), with an increasing growth
+rate manifest in steeper lines in the trend plot.
+TABLE 1. MData Size.
+Table 2 of the study shows the annual metric in Publica-
+tions. Results indicate that the initial mean total citations per
+article is 16.67 times, with a yearly citation of 1.11 times.
+Moreover, the mean total citations per article peaks at
+45.32 times the at year 2016 while the yearly mean total
+citation is the greatest in 2019 (8.07). To elucidate the change
+of average annual citation per year, Figure 4 shows an overall
+zigzag trend, indicating that ‘‘AI in education technology’’
+has garnered an increasing popularity across the years, with
+the most essential research insights occur in 2019.
+V. OVERVIEW OF PUBLICATION SOURCES, AFFILIATION,
+AUTHORS
+As one of the most tangible pattern indicates that sources,
+affiliations and authors are measured jointly with relevance
+and local impact. Bibliometrix calculates relevance drawing
+on frequency measures including number of documents, per-
+centage and fractionalized frequency. Relevance in this study
+is indicated by the total amount of publications. Table 3
+demonstrates the top 25 most relevant sources, affiliations,
+and author relevance. The ‘Cureus Journal of Medical Sci-
+ence’, a Springer Nature journal in the field of Medicine,
+is the one with the most publications (101) in AI education,
+followed by ‘Sustainability’ (63), an open-access journal
+focusing on environmental, cultural, economic, and social
+sustainability of human beings The journal that ranks 3rd is
+Education and Information Technologies (49), the topic of
+which is congruent with information, communication tech-
+nologies and education. Moreover, the author-based metrics
+h-index, g-index and m-index offer a perspective taking
+into account productivity and citation impact of publica-
+tion sources, affiliations and authors. Table 4 demonstrates
+the top 25 journals with the greatest local impact. Inter-
+national Journal Of Artificial Intelligence In Education,
+Sustainability, IEEE Access,British Journal Of Educational
+Technology, Education And Information Technologies are the
+top 5 journals with the greatest h-index and g-index. Since
+VOLUME 12, 2024
+113279
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+FIGURE 3. Number of annual publications.
+TABLE 2. Annual citations per year.
+m-index is defined as h/n, where h is defined as h-index
+while n is the number of years since the first publication
+of paper, the ranking of m-index differ significantly from
+that of the other two metrics. Cureus Journal Of Medical
+Science, Aesthetic Surgery Journal, Journal Of Chemical
+Education, Sustainability, British Journal of Educational
+Technology have the greatest local impact if measured by
+m-index.
+From the most productive authors in AI in education
+perspective, Table 3 shows that Chai CS (14), Chiu TKF
+(13), Kim J (13), Hwang GJ (12), Wang FY(12) are found
+the top 5 most relevant authors. Also, Table 5 shows the
+top 25 authors with the greatest local impact. G-index and
+h-index align with each other in taking Chai CS, Chiu TKF,
+Hwang GJ, Cukurova M are among the top 4 ranking. But
+in terms of m-index, this ranking is replaced by Wang FY,
+113280
+VOLUME 12, 2024
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+FIGURE 4. Average annual citations of papers.
+FIGURE 5. Documents distribution/ Country cooperation map.
+Alhasan K, Aljamaan F And Al-Eyadhy A. The publication of
+affiliations is shown in the fifth and sixth column of Table 3.
+Following the most productive institutions, University of
+Toronto (51), University of London (46), University College
+VOLUME 12, 2024
+113281
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+TABLE 3. Top 25 most relevant sources, affiliations and authors.
+113282
+VOLUME 12, 2024
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+TABLE 3. (Continued.) Top 25 most relevant sources, affiliations and authors.
+London(43), Harvard University(38), Udice-French Research
+Universities(37) are the most productive institutions.
+VI. ANNUAL SCIENTIFIC PRODUCTION
+A. COOPERATION AND CITATION ANALYSIS
+1) COUNTRIES/REGIONS PUBLICATION NETWORK
+The map in figure 5 shows the distribution of publications
+across the world with number of publications attached. Pub-
+lications span across 104 countries/regions across the world.
+The number of publications is indicated by the darkness of the
+blue color of each region. The regions with more publications
+are tinted with darker blue while those less are of lighter
+blue. According to Figure 5, China and US have the most
+publications.
+Figure 5 and Table 6 combined demonstrate the col-
+laboration status among countries. (USA, China), (USA,
+United Kingdom) and (USA, Australia) have the closest bond
+according to Table 6. Notably, China and USA are also with
+the most extensive global cooperations.
+2) HIGHLY CITED PUBLICATIONS
+Table 7 comprises the top 25 papers with the most citations.
+In bibliometric analytics, global citation score (GCS) is the
+overall citations of article in WOS database while local cita-
+tion score (LCS) only measures the citations in the current
+collected dataset. The normalized local citation (NLCS) in
+bibliometric (see Table 7) is calculated by dividing the actual
+count of local citing items by the expected citation rate for
+documents with the same year of publication. It precisely
+measures the relative citations of various documents pub-
+lished in different years. The paper with largest NLCS is
+considered the most influential paper within the specified
+VOLUME 12, 2024
+113283
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+TABLE 4. Top 25 Sources with the largest local impact.
+113284
+VOLUME 12, 2024
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+TABLE 4. (Continued.) Top 25 Sources with the largest local impact.
+field. In addition, the table 7 shows that the paper titled
+‘‘Opinion Paper: ‘‘So what if ChatGPT wrote it?’’ Multi-
+disciplinary perspectives on opportunities, challenges and
+implications of generative conversational AI for research,
+practice and policy’’, published on the International Journal
+of Information Management, has the greatest NLCS. The
+paper with the largest LCS is the review article authored by
+ZAWACKI-RICHTER et al in International Journal of Educa-
+tion Technology in Higher Education. Most of the documents
+with high LCS or NLCS were published within the timespan
+VOLUME 12, 2024
+113285
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+TABLE 5. Top 25 authors with the largest local impact.
+113286
+VOLUME 12, 2024
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+TABLE 6. Country collaboration statistics.
+from 2019 to 2023, consistent with the trend of publication
+demonstrated in Figure 3.
+3) ANALYSIS OF CITED REFERENCES
+Burst detection facilitates the frequency tracking of docu-
+ments over a specific period of time [50]. Figure 6 shows
+the top 25 references with the strongest burst strength. The
+blue bar indicates the overall timespan from 2009 to 2024.
+However, upon deleting three documents with unspecified
+publication information, 81 documents with burst strength
+are detected out of 626 references. The period in which
+references appear is shown in red bar. The reference with
+the strongest citation burst comes from [37] aligning with
+the result provided in Figure 6. The document with the
+longest citation period and the second largest citation burst
+is ‘‘Exploring the impact of artificial intelligence on teaching
+and learning in higher education’’ by [53] in which the future
+directions and challenges of AI in higher education were
+meticulously investigated.
+B. RESEARCH FOCI AND TRENDS
+In this section, research foci and emerging trends in the
+field of AI education are examined through keyword anal-
+ysis including keyword co-occurrence analysis and cluster
+analysis.
+1) RESEARCH FOCI
+Figure 2 shows Knowledge domain map of keyword
+co-occurrence network (a) network visualization map based
+on LinLog modularity normalization; (b) density visualiza-
+tion map based on article weights.
+Firstly, to observe the keyword co-occurrence network,
+VOSviewer is utilized to plot two knowledge domain maps—
+the network visualization map as well as the density visual-
+ization map. In Figure 7a, the largest node in the green part
+is artificial intelligence, followed by ChatGPT, representative
+of a technology-oriented cluster. In the red part of the map,
+keywords are primarily concerned with education. The largest
+node in the red part is education. The color of nodes in
+VOLUME 12, 2024
+113287
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+TABLE 7. Top 25 most-cited papers.
+113288
+VOLUME 12, 2024
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+TABLE 7. (Continued.) Top 25 most-cited papers.
+density visualization is an indication of their citation weights.
+Aligning with Figure 7b, artificial intelligence and chatgpt
+are also of the greatest citation weights as manifested in their
+bright yellow color.
+Following the keyword co-occurrence network, this
+section has conducted a factorial analysis embedded in
+the ‘‘conceptual structure’’ functional panel in Biblioshiny.
+Factorial
+analysis
+in
+bibliometrix
+is
+underpinned
+by
+Multi-correspondance Analysis (MCA), an exploratory mul-
+tivariate technique for the graphical and numerical analysis of
+multivariate categorical data [46]. Figure 8 depicts a keyword
+cluster based on the commonality of study area of the key-
+words. The proximity between these keywords indicates the
+extent to which they are treated together. In this conceptual
+VOLUME 12, 2024
+113289
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+FIGURE 6. Top 25 references with the strongest citation burst.
+113290
+VOLUME 12, 2024
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+FIGURE 7. a. Reserch Foci b. Reserch Foci.
+VOLUME 12, 2024
+113291
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+FIGURE 8. Conceptual structure map.
+FIGURE 9. Topic evolution process of AI in education technology research.
+structure map, keywords such as ‘‘adoption’’, ‘‘information
+technology’’ ‘‘technology acceptance model’’ and ‘‘user
+acceptance’’ are in the other end of the dimension, away
+from the rest of keywords such as ‘‘technologies’’, ‘‘artificial
+intelligence’’, which lean toward the technology itself and
+relative application. Divergence shown in the map indicates
+that technology adoption/acceptance are treated separately
+from technology/application by most researchers. Following
+the horizontal axis of the map, keywords from the right end
+focus more multidimensional measurement and evaluation
+while those on the left emphasize more one-dimensional
+studies [42]. Additionally, keywords are distributed at the
+113292
+VOLUME 12, 2024
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+FIGURE 10. Top 17 Topics with the strongest citation burst.
+FIGURE 11. Strategic diagrams of AI in education research.
+center of the map which represents the research foci since
+it is the average position of all of the articles. In this context,
+keywords like ‘‘education’’ ‘‘quality’’ ‘‘innovation’’ consti-
+tute the research foci.
+VOLUME 12, 2024
+113293
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+FIGURE 12. Timeline view of keyword clusters.
+2) KEY POINTS AND RESEARCH TRENDS
+Keywords are the index the research trends and key points.
+How specific research topic has evolved over time is depicted
+in Figure 9. The thematic evolution process in Figure 9 is
+originated from [54]. The 15-years span is divided into four
+periods. Artificial intelligence and artificial intelligence in
+education occur in the first four-year period and span across
+the whole period. In the second period, ‘‘learning analytics’’
+and ‘‘educational technology’’ appear as new topic. The year
+2018 to 2020 marks the bloom of AI, in which terms such
+as ‘‘chatbot’’ ‘‘robots’’ emerge as hot topic. The last period
+is indexed by ‘‘chatgpt’’, the large language model with its
+ground-breaking impact in the field of AI and every aspect
+of daily life. Technology-based terms like AI and chatgpt are
+on the right side while those related to education are on the
+left side, indicating that more focus on ‘‘AI in education’’
+research is leaned to technology instead of education. While
+from the vertical axis, ‘‘student attitudes’’ are more estab-
+lished in this field than ‘‘teaching’’ and ‘‘AI literacy’’ and
+‘‘chatgpt’’ is under-developed. Since the field under exami-
+nation is yet to be established, no keyword fall into the third
+quadrant.
+Later, the burst term detection analysis is conducted by
+Citespace aiming to observe the topics that have undergone
+rapid changes. A total of 17 burst terms are detected. The
+strength and the timespan of these burst terms are shown in
+Figure 10. Following a chronological order, the first keyword
+that has undergone abrupt change is ‘‘artificial intelligence
+in education’’, which has the longest burst range spanning
+across eight years 2009-2017). The term with the largest burst
+strength is ‘‘health-care’’ from 2015 to 2017, followed by
+‘‘covid-19-pandemic’’ (2015-2017). The period 2016-2023 is
+marked by the AI-related technology such as deep learning,
+machine learning and big data. Notably, the term ‘‘technol-
+ogy’’ in general has garnered much attention starting from
+2018 until now. Additionally, the strategic diagram demon-
+strated in Figure 11, consisting of four quadrants, graphically
+illustrates the centrality and density of keywords. The key-
+words on the right side are of greater centrality or higher
+degree of connection between clusters. Those on the upper
+side of the quadrant are of greater density or higher degree of
+connection between keywords in the cluster. Therefore, the
+keywords on the first quadrant are called motor themes, which
+are well-developed and bearing great significance [54].
+To further understand research trends, Citespace is used to
+generate a timeline view.
+Figure 12 presents the year-wise trend of research topics
+from 2009 to 2024 with 477 nodes, 888 links and a density of
+0.0078.
+The modularity and silhouette of the cluster is 0.6995 and
+0.8811 respectively.
+Table 8 is the summary of clusters with the attribute Clus-
+ter ID, size, silhouette, mean citation year and labels. Items in
+Table 7 are ordered by cluster size. As per the mean citation
+113294
+VOLUME 12, 2024
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+TABLE 8. Summary of clusters.
+VOLUME 12, 2024
+113295
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+TABLE 8. (Continued.) Summary of clusters.
+113296
+VOLUME 12, 2024
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+year in Table 7, cluster #7 (American Indian), cluster # 15
+(dsql tutor) are the initial clusters with mean citation year
+of 2015 Cluster # 3 (patient education) and cluster # 12(text
+mining) mark the most recent trend in this field. Additionally,
+cluster #0 is the longest spanning cluster, indicating that
+cyber-physical-social systems, learning analytics, deep learn-
+ing, parallel intelligence, taxonomy are hot research topics in
+the field of AI education.
+VII. CONCLUSION
+The study offers a bibliometric analysis of the AI in educa-
+tion and aims to highlight the trends, and reflected patterns.
+In doing so, the study shows the diversity of themes, patterns
+and novel approaches to education while using AI technology
+across the world. The study also shows developments in the
+field of artificial intelligence in education, big data and learn-
+ing analytics and offers valuable suggestions based on the
+findings. This study examines the worldwide context of arti-
+ficial intelligence (AI) research, specifically focusing on the
+nations, universities, authors, journals, and publications that
+have shown the highest levels of productivity in the area of AI
+integrated with online learning between the years 2010 and
+2024. The research answers these questions by highlighting
+and examining a range of challenges related to the utilization
+of AI in education, along with the opportunities it presents.
+These challenges encompass the possibility of inappropriate
+application of AI techniques, the changing roles of teachers
+and students, and the ethical and social consequences arising
+from the integration of AI.
+Overall, the study highlights that AI is proven to be a help-
+ing aid that as focused on studying and creating intelligent
+machines and software capable of learning, logic, commu-
+nicating, manipulating, and perceiving objects. To enhance
+the usefulness, intelligence, and human-like qualities of
+machines, specific application-oriented intelligent technolo-
+gies have been developed for particular scenarios. Following
+a chronological order, the first keyword that has undergone
+an abrupt change is ‘‘artificial intelligence in education,’’
+which has the longest burst range spanning eight years
+(2009-2017). The term with the largest burst strength is
+‘‘healthcare’’ from 2015 to 2017, followed by ‘‘covid-19-
+pandemic’’ (2015-2017). The period from 2016 to 2023 is
+marked by AI-related technologies such as deep learning,
+machine learning, and big data. Notably, the term ‘‘technol-
+ogy’’ in general has garnered much attention from 2018 until
+now.
+As per the mean citation year in Table 7, cluster #7 (Ameri-
+can Indian) and cluster #15 (dsql tutor) are the initial clusters
+with a mean citation year of 2015. Cluster #3 (patient edu-
+cation) and cluster #12 (text mining) mark the most recent
+trends in this field.
+The results of this study have provided statistical evidences
+of topics and themes, diversity in using artificial intelligence
+(AI) tools and gadgets which have emerged as a highly
+effective method for extracting meaningful insights in higher
+education. Nevertheless, the primary objective of using AI in
+education is not to acquire useable knowledge, but rather to
+utilize the knowledge to facilitate the teaching and learning
+process. Recently, there has been a proliferation of using
+ChatGPT models and other AI tools in education.
+Overall, the studies presented in this review showed that
+the integration of artificial intelligence (AI) in the field of
+education has achieved notable advancements, particularly in
+economically advanced nations, as shown by relevant aca-
+demic research [19], [55]. The influence of AI applications
+within the realm of education is becoming more evident.
+The transformative impact of this phenomenon is visible
+in various aspects, such as the reduction of teacher work-
+loads, the provision of personalized learning experiences, the
+incorporation of intelligent tutoring systems, the analysis and
+prediction of learner profiles, the enhancement of precision in
+education, the facilitation of collaborative learning environ-
+ments, and the monitoring of individual learners’ progress.
+Finally, the study identifies that artificial intelligence (AI)
+has a diverse range of capabilities that extend beyond the
+establishment of Intelligent Learning Environments (ILEs).
+Its influence on real-world teaching practices has been exten-
+sively discussed [56]. The noticeable increase in scholarly
+articles related to these fields in recent years indicates the
+rising significance and pressing nature of these subjects.
+REFERENCES
+[1] M. Afzaal, M. Imran, X. Du, and N. Almusharraf, Automated and Human
+Interaction in Written Discourse: A Contrastive Parallel Corpus-based
+Investigation of Metadiscourse Features in Machine-Human Translations.
+Newbury Park, CA, USA: Sage, 2022.
+[2] P. Song and X. Wang, ‘‘A bibliometric analysis of worldwide educational
+artificial intelligence research development in recent twenty years,’’ Asia
+Pacific Educ. Rev., vol. 21, no. 3, pp. 473–486, Sep. 2020.
+[3] M. Chassignol, A. Khoroshavin, A. Klimova, and A. Bilyatdinova, ‘‘Artifi-
+cial intelligence trends in education: A narrative overview,’’ Proc. Comput.
+Sci., vol. 136, pp. 16–24, Jul. 2018.
+[4] X. Chen, G. Yu, G. Cheng, and T. Hao, ‘‘Research topics, author profiles,
+and collaboration networks in the top-ranked journal on educational tech-
+nology over the past 40 years: A bibliometric analysis,’’ J. Comput. Educ.,
+vol. 6, no. 4, pp. 563–585, Dec. 2019.
+[5] F. Gao, X. Jia, Z. Zhao, C.-C. Chen, F. Xu, Z. Geng, and X. Song,
+‘‘Bibliometric analysis on tendency and topics of artificial intelligence over
+last decade,’’ Microsyst. Technol., vol. 27, no. 4, pp. 1545–1557, Apr. 2021.
+[6] M. J. Timms, ‘‘Letting artificial intelligence in education out of the box:
+Educational cobots and smart classrooms,’’ Int. J. Artif. Intell. Educ.,
+vol. 26, no. 2, pp. 701–712, Jun. 2016.
+[7] A. Vazhayil, R. Shetty, R. R. Bhavani, and N. Akshay, ‘‘Focusing on
+teacher education to introduce AI in schools: Perspectives and illustrative
+findings,’’ presented at the Proc. IEEE 10th Int. Conf. Technol. Educ.
+(T4E), Dec. 2019.
+[8] F. I. Maulana, M. A. Febriantono, D. R. B. Raharja, I. R. Sofiani, and V. Al
+Hadid Firdaus, ‘‘Two decade mapping the scientific research of Internet of
+Things on education—A bibliometric analysis,’’ presented at the Proc. Int.
+Conf. Electr. Inf. Technol. (IEIT), Sep. 2021.
+[9] E. Tait and C. M. Pierson, ‘‘Artificial intelligence and robots in libraries:
+Opportunities in LIS curriculum for preparing the librarians of tomorrow,’’
+J. Austral. Library Inf. Assoc., vol. 71, no. 3, pp. 256–274, Jul. 2022.
+[10] F. A. Triansyah, I. Muhammad, A. Rabuandika, K. D. P. Siregar, N. Teapon,
+and M. S. Assabana, ‘‘Bibliometric analysis: Artificial intelligence (AI)
+in high school education,’’ Jurnal Imiah Pendidikan Dan Pembelajaran,
+vol. 7, no. 1, pp. 112–123, Apr. 2023.
+[11] A. Purnomo, A. Septianto, F. Anam, A. Christanti, and G. K. Zamahsari,
+‘‘A bibliometric overview and visualization of the digital education publi-
+cation,’’ presented at the Proc. Int. Conf. Inf. Manage. Technol. (ICIMTech),
+vol. 1, Aug. 2021.
+VOLUME 12, 2024
+113297
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+[12] M. Ali and M. K. Abdel-Haq, ‘‘Bibliographical analysis of artificial intel-
+ligence learning in higher education: Is the role of the human educator and
+educated a thing of the past?’’ in Advances in Educational Technologies
+and Instructional Design. Hershey, PA, USA: IGI Global, 2021, pp. 36–52.
+[13] L. Chen, P. Chen, and Z. Lin, ‘‘Artificial intelligence in education: A
+review,’’ IEEE Access, vol. 8, pp. 75264–75278, 2020.
+[14] D. T. K. Ng, J. K. L. Leung, K. W. S. Chu, and M. S. Qiao, ‘‘AI literacy:
+Definition, teaching, evaluation and ethical issues,’’ in Association for
+Information Science and Technology. Hoboken, NJ, USA: Wiley, 2021.
+[15] C. Rodríguez Jiménez, M. Sanz Prieto, and S. Alonso García, ‘‘Technology
+and higher education: A bibliometric analysis,’’ Educ. Sci., vol. 9, no. 3,
+p. 169, Jul. 2019.
+[16] D. J. Borgohain, R. K. Bhardwaj, and M. K. Verma, ‘‘Mapping the lit-
+erature on the application of artificial intelligence in libraries (AAIL): A
+scientometric analysis,’’ Library Hi Tech., vol. 42, no. 1, pp. 149–179,
+Feb. 2024.
+[17] M. Imran and N. Almusharraf, ‘‘Analyzing the role of ChatGPT as a writing
+assistant at higher education level: A systematic review of the literature,’’
+Contemp. Educ. Technol., vol. 15, no. 4, p. ep464, Oct. 2023.
+[18] T. Z. Shah, M. Imran, and S. M. Ismail, ‘‘A diachronic study determining
+syntactic and semantic features of Urdu-English neural machine transla-
+tion,’’ Heliyon, vol. 10, no. 1, Jan. 2024, Art. no. e22883.
+[19] C. Huang, C. Yang, S. Wang, W. Wu, J. Su, and C. Liang, ‘‘Evolution
+of topics in education research: A systematic review using bibliometric
+analysis,’’ Educ. Rev., vol. 72, no. 3, pp. 281–297, May 2020.
+[20] D. Zou, S. Luo, H. Xie, and G.-J. Hwang, ‘‘A systematic review of research
+on flipped language classrooms: Theoretical foundations, learning activi-
+ties, tools, research topics and findings,’’ Comput. Assist. Lang. Learn.,
+vol. 35, no. 8, pp. 1811–1837, Nov. 2022.
+[21] A. Behl, N. Jayawardena, V. Pereira, N. Islam, M. D. Giudice, and
+J. Choudrie, ‘‘Gamification and e-learning for young learners: A system-
+atic literature review, bibliometric analysis, and future research agenda,’’
+Technol. Forecasting Social Change, vol. 176, Mar. 2022, Art. no. 121445.
+[22] M. Younas and Y. Dong, ‘‘The impact of using animated movies in
+learning English language vocabulary: An empirical study of lahore,
+Pakistan,’’ Sage Open, vol. 14, no. 2, pp. 1–20, Apr. 2024, doi:
+10.1177/21582440241258398.
+[23] A. Gull, M. Imran, M. Yiunas, and M. Afzaal, ‘‘A descriptive study of chal-
+lenges faced by English language teachers in integrating information and
+communication technology (ICT) tools at elementary level in Pakistan,’’
+Int. J. Adv. Sci. Technol., vol. 29, no. 8, pp. 290–305, 2020.
+[24] G. Wang and J. He, ‘‘Bibliometric analysis on research trends of digital
+literacy in higher education from 2012 to 2021,’’ Int. J. Emerg. Technol.
+Learn., vol. 17, no. 16, pp. 43–58, Aug. 2022.
+[25] U. Noor, M. Younas, H. Saleh Aldayel, R. Menhas, and X. Qingyu, ‘‘Learn-
+ing behavior, digital platforms for learning and its impact on university
+student’s motivations and knowledge development,’’ Frontiers Psychol.,
+vol. 13, Nov. 2022, Art. no. 933974, doi: 10.3389/fpsyg.2022.933974.
+[26] C.-W. Shen and J.-T. Ho, ‘‘Technology-enhanced learning in higher edu-
+cation: A bibliometric analysis with latent semantic approach,’’ Comput.
+Hum. Behav., vol. 104, Mar. 2020, Art. no. 106177.
+[27] S. F. Ahmad, M. K. Rahmat, M. S. Mubarik, M. M. Alam, and S. I. Hyder,
+‘‘Artificial intelligence and its role in education,’’ Sustainability, vol. 13,
+no. 22, p. 12902, May 2021.
+[28] E.
+Y.
+Barakina,
+A.
+V.
+Popova,
+S.
+S.
+Gorokhova,
+and
+A. S. J. E. J. O. C. Voskovskaya, ‘‘Digital technologies and artificial
+intelligence technologies in education,’’ Eur. J. Contemp. Educ., vol. 10,
+no. 2, pp. 285–296, 2021.
+[29] V. Maphosa and M. Maphosa, ‘‘Artificial intelligence in higher education:
+A bibliometric analysis and topic modeling approach,’’ Appl. Artif. Intell.,
+vol. 37, no. 1, Dec. 2023, Art. no. 2261730.
+[30] S. Hajkowicz, C. Sanderson, S. Karimi, A. Bratanova, and C. Naughtin,
+‘‘Artificial intelligence adoption in the physical sciences, natural sciences,
+life sciences, social sciences and the arts and humanities: A bibliometric
+analysis of research publications from 1960–2021,’’ Technol. Soc., vol. 74,
+Aug. 2023, Art. no. 102260.
+[31] X. Chen, D. Zou, H. Xie, G. Cheng, and C. Liu, ‘‘Two decades of artificial
+intelligence in education,’’ Educ. Technol. Soc., vol. 25, no. 1, pp. 28–47,
+2022.
+[32] K. C. Li and B. T.-M. Wong, ‘‘Research landscape of smart education:
+A bibliometric analysis,’’ Interact. Technol. Smart Educ., vol. 19, no. 1,
+pp. 3–19, Feb. 2022.
+[33] M. Younas, U. Noor, X. Zhou, R. Menhas, and X. Qingyu, ‘‘COVID-19,
+students satisfaction about e-learning and academic achievement: Medi-
+ating analysis of online influencing factors,’’ Frontiers Psychol., vol. 13,
+Aug. 2022, Art. no. 948061, doi: 10.3389/fpsyg.2022.948061.
+[34] N. E. Akrami, M. Hanine, E. S. Flores, D. G. Aray, and I. Ashraf,
+‘‘Unleashing the potential of blockchain and machine learning: Insights
+and emerging trends from bibliometric analysis,’’ IEEE Access, vol. 11,
+pp. 78879–78903, 2023.
+[35] S. K. M. Brika, A. Algamdi, K. Chergui, A. A. Musa, and R. Zouaghi,
+‘‘Quality of higher education: A bibliometric review study,’’ Frontiers
+Educ., vol. 6, May 2021, Art. no. 666087.
+[36] Y.
+Zhang,
+A.
+L.
+Porter,
+S.
+Cunningham,
+D.
+Chiavetta,
+and
+N.
+Newman,
+‘‘Parallel
+or
+intersecting
+lines?
+Intelligent
+bibliometrics
+for
+investigating
+the
+involvement
+of
+data
+science
+in policy analysis,’’ IEEE Trans. Eng. Manag., vol. 68, no. 5,
+pp. 1259–1271,
+Oct.
+2021,
+doi:
+10.1109/TEM.2020.2974761.
+https://doi.org/10.1109/TEM.2020.2974761
+[37] O. Zawacki-Richter, V. I. Marín, M. Bond, and F. Gouverneur, ‘‘Sys-
+tematic review of research on artificial intelligence applications in higher
+education—Where are the educators?’’ Int. J. Educ. Technol. Higher Educ.,
+vol. 16, no. 1, pp. 1–39, Dec. 2019, doi: 10.1186/s41239-019-0171-0.
+[38] Y. Sun, G. Wang, and H. Feng, ‘‘Linguistic studies on social media:
+A bibliometric analysis,’’ SAGE Open, vol. 11, no. 3, Jul. 2021,
+Art. no. 215824402110475, doi: 10.1177/21582440211047572.
+[39] Y. Chen, M. Lin, and D. Zhuang, ‘‘Wastewater treatment and emerging
+contaminants: Bibliometric analysis,’’ Chemosphere, vol. 297, Jun. 2022,
+Art. no. 133932, doi: 10.1016/j.chemosphere.2022.133932.
+[40] Y. Chen and C. Wu, ‘‘The hot spot transformation in the research evolution
+of maker,’’ Scientometrics, vol. 113, no. 3, pp. 1307–1324, 2017.
+[41] A. Syahid and A. Qodir, ‘‘Journal of language and linguistic studies:
+A fifteen-year bibliometric quest for a bigger impact,’’ Dil ve Dilbilimi
+Çalsmaları Dergisi, vol. 17, no. 1, pp. 290–314, Mar. 2021.
+[42] C. Cuccurullo, M. Aria, and F. Sarto, ‘‘Foundations and trends in perfor-
+mance management. A twenty-five years bibliometric analysis in business
+and public administration domains,’’ Scientometrics, vol. 108, no. 2,
+pp. 595–611, Aug. 2016, doi: 10.1007/s11192-016-1948-8.
+[43] O. Ellegaard, ‘‘The application of bibliometric analysis: Disciplinary and
+user aspects,’’ Scientometrics, vol. 116, no. 1, pp. 181–202, Jul. 2018, doi:
+10.1007/s11192-018-2765-z.
+[44] Y.-M. Guo, Z.-L. Huang, J. Guo, X.-R. Guo, H. Li, M.-Y. Liu,
+S. Ezzeddine, and M. J. Nkeli, ‘‘A bibliometric analysis and visualiza-
+tion of blockchain,’’ Future Gener. Comput. Syst., vol. 116, pp. 316–332,
+Mar. 2021, doi: 10.1016/j.future.2020.10.023.
+[45] J. Song, H. Zhang, and W. Dong, ‘‘A review of emerging trends in global
+PPP research: Analysis and visualization,’’ Scientometrics, vol. 107, no. 3,
+pp. 1111–1147, Jun. 2016, doi: 10.1007/s11192-016-1918-1.
+[46] A. Aria and C. Cuccurullo, ‘‘Bibliometrix: An R-tool for comprehensive
+science mapping analysis,’’ J. Informetrics, vol. 11, no. 4, pp. 959–975,
+2017.
+[47] N. J. van Eck and L. Waltman, ‘‘Software survey: VOSviewer, a com-
+puter program for bibliometric mapping,’’ Scientometrics, vol. 84, no. 2,
+pp. 523–538, Aug. 2010.
+[48] M. Pradana, H. P. Elisa, and S. Syarifuddin, ‘‘Discussing ChatGPT in
+education: A literature review and bibliometric analysis,’’ Cogent Educ.,
+vol. 10, no. 2, pp. 1–29, Dec. 2023, doi: 10.1080/2331186x.2023.2243134.
+[49] Z. Lin and L. Lei, ‘‘The research trends of multilingualism in applied
+linguistics and education (2000–2019): A bibliometric analysis,’’ Sustain-
+ability, vol. 12, no. 15, p. 6058, Jul. 2020, doi: 10.3390/su12156058.
+[50] J. Kleinberg, ‘‘Bursty and hierarchical structure in streams,’’ in Proc.
+8th ACM SIGKDD Int. Conf. Knowl. Discovery Data Mining, Jul. 2002,
+pp. 1–29.
+[51] L. C. Freeman, ‘‘Centrality in social networks conceptual clarification,’’
+Social Netw., vol. 1, no. 3, pp. 215–239, Jan. 1978.
+[52] C. Chen, ‘‘Searching for intellectual turning points: Progressive knowl-
+edge domain visualization,’’ Proc. Nat. Acad. Sci. USA, vol. 101, no. 1,
+pp. 5303–5310, Apr. 2004.
+[53] S. A. D. Popenici and S. Kerr, ‘‘Exploring the impact of artificial intelli-
+gence on teaching and learning in higher education,’’ Res. Pract. Technol.
+Enhanced Learn., vol. 12, no. 1, p. 22, Dec. 2017.
+[54] M. J. Cobo, A. G. López-Herrera, E. Herrera-Viedma, and F. Herrera,
+‘‘Science mapping software tools: Review, analysis, and cooperative
+study among tools,’’ J. Amer. Soc. Inf. Sci. Technol., vol. 62, no. 7,
+pp. 1382–1402, Jul. 2011.
+113298
+VOLUME 12, 2024
+M. Afzaal et al.: Mapping Artificial Intelligence Integration in Education
+[55] F. Tahiru, ‘‘AI in education: A systematic literature review,’’ J. Cases Inf.
+Technol. (JCIT), vol. 23, no. 1, pp. 1–20, 2021.
+[56] Z. Dai, Q. Zhang, X. Zhu, and L. Zhao, ‘‘A comparative study of
+Chinese and foreign research on the Internet of Things in educa-
+tion: Bibliometric analysis and visualization,’’ IEEE Access, vol. 9,
+pp. 130127–130140, 2021.
+MUHAMMAD
+AFZAAL
+received the Ph.D.
+degree from Shanghai Jiao Tong University,
+China. He has extensive research fellow expe-
+rience with The Hong Kong Polytechnic Uni-
+versity, Hong Kong, and seven years teaching
+experience with Foundation University Islamabad,
+Pakistan. He joined the Institute of Corpus Studies
+and Applications, Shanghai International Stud-
+ies University, China, as an Associate Profes-
+sor. He is the author of the book Corpora and
+Discourses of the Belt and Road Initiative (Springer Nature, 2023).
+He has published extensively academic articles in SSCI, Scopus, and
+ESCI-indexed international journals, such as Critical Discourse Studies,
+Corpora, International Journal of Applied Linguistics, Discourse Stud-
+ies, Asia Pacific Business Review, Chinese Journal of Communication,
+Asian Journal of Communications, Frontiers in Psychology, Humani-
+ties and Social Science Communications (HSSC), Australian Journal
+of Applied Linguistics, and Asian Journal of Comparative Politics. His
+research interests include corpus linguistics, discourse analysis, critical
+discourse analysis, translation studies, and more particularly the merg-
+ing of language sciences with NLP and big data. He received the Yang
+Yong Research Award from Shanghai Jiao Tong University’s Graduate
+School, China. Google Scholar: https://scholar.google.com/citations?user
+=QN9vjPoAAAAJ&hl=en.
+XIAO SHANSHAN is currently pursuing the
+master’s degree in linguistics with the School
+of English Studies, Shanghai International Stud-
+ies University. She has published her work in
+SSCI journals. Her co-authored work has been
+accepted by international renowned conference,
+such as Annual Conference of the British Asso-
+ciation for Applied Linguistics (AILA), Critical
+Approaches to Discourse Analysis Across Disci-
+plines (CADAAD), and Symposium on Second
+Language Writing (SSLW). Her research interests include language sciences,
+applied linguistics, and the integration of language science with big data
+and NLP.
+DONG YAN was born in Henan, China, in 1973.
+She received the Ph.D. degree in education tech-
+nology (major) from the School of Psychology,
+Beijing Normal University, Beijing, China, in June
+2007. She was a Visiting Scholar with the Insti-
+tute of Learning and Instruction, The University
+of Sydney, Sydney, Australia, from July 2004 to
+November 2004. From 1998 to 2000, she was a
+Research Assistant with the Department of Elec-
+tronic, Beijing Normal University. Since 2001, she
+has been an Advanced Lecturer. In 2006, she was an Associate Professor with
+the Laboratory of Web Education and the School of Information Science.
+In 2015, she was a Professor with the Faculty of Education, Beijing Normal
+University. She is the author of 40 articles and the host of 15 projects, three of
+which are key at ministerial and provincial-level funding. Her research inter-
+ests include teachers’ TPACK knowledge, 21st-century learning, feedback
+literacy, technology-enhanced learning, and STEM project-based learning.
+She received the Excellent Paper Award (East China Normal University,
+2017).
+MUHAMMAD YOUNAS received the Ph.D.
+degree in higher education from Soochow Uni-
+versity, China. He is a Researcher with the
+School of Educational Technology, Beijing Nor-
+mal University. He has published academic articles
+in various SSCI and Scopus-indexed journals
+related to language teacher education and tech-
+nological teaching/learning. His research interests
+include artificial intelligence in education, lan-
+guage teacher education, CALL, e-learning in
+higher education, technology-enhanced learning, MALL, and virtual learn-
+ing environment (VLE). He received the Jiangsu Province Outstanding
+International Researcher Award from Soochow University.
+VOLUME 12, 2024
+113299

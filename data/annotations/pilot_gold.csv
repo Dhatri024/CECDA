@@ -1,0 +1,16 @@
+paper_id,claim_sentence,csv_label,ebv_label,annotator
+0073cc73e1873b35345209b50a3dab66-Paper-Conference,"Extensive experiments have demonstrated the effectiveness of our method for large-scale scene novel view synthesis, which outperforms relevant state-of-the-art baselines.",HIGH,HIGH,Dhatri
+0073cc73e1873b35345209b50a3dab66-Paper-Conference,"We summarize the contributions as follows: we propose an implicit neural representation framework based on point diffusion models to provide dense surface priors.",MEDIUM,MEDIUM,Dhatri
+0073cc73e1873b35345209b50a3dab66-Paper-Conference,"Extensive experiments demonstrate that our PDF network outperforms state-of-the-art methods, including robustness to large-scale outdoor scene representation.",HIGH,HIGH,Dhatri
+00296c0e10cd24d415c2db63ea2a2c68-Paper-Conference,"We propose a novel grid point selection scheme and an adaptive stopping criterion with approximation error guarantee.",HIGH,MEDIUM,Dhatri
+00296c0e10cd24d415c2db63ea2a2c68-Paper-Conference,"The proposed solution path can approximate the exact solution path to arbitrary accuracy while saving computation.",HIGH,MEDIUM,Dhatri
+00bb4e415ef117f2dee2fc3b778d806d-Paper-Conference,"We introduce a new framework that improves performance across multiple benchmark datasets.",HIGH,HIGH,Dhatri
+00bb4e415ef117f2dee2fc3b778d806d-Paper-Conference,"Experimental results show that our method consistently outperforms strong baselines.",HIGH,HIGH,Dhatri
+001608167bb652337af5df0129aeaabd-Paper-Conference,"We present a new algorithm Cross-Episodic Curriculum (CEC) to boost learning efficiency and generalization of Transformer agents.",MEDIUM,HIGH,Dhatri
+001608167bb652337af5df0129aeaabd-Paper-Conference,"CEC constructs curricula that encapsulate learning progression and proficiency increase across episodes.",MEDIUM,HIGH,Dhatri
+001608167bb652337af5df0129aeaabd-Paper-Conference,"Policies resulting from CEC exhibit superior performance and strong generalization in all instances.",HIGH,HIGH,Dhatri
+0021c2cb1b9b6a71ac478ea52a93b25a-Paper-Conference,"The paper introduces PaintSeg, a new unsupervised method for segmenting objects without any training.",HIGH,HIGH,Dhatri
+0021c2cb1b9b6a71ac478ea52a93b25a-Paper-Conference,"Inpainting and outpainting allow the method to advance the segmentation mask toward ground truth without supervision.",MEDIUM,HIGH,Dhatri
+0021c2cb1b9b6a71ac478ea52a93b25a-Paper-Conference,"Experimental results demonstrate PaintSeg outperforms existing approaches across multiple prompt-based segmentation tasks.",HIGH,HIGH,Dhatri
+002262941c9edfd472a79298b2ac5e17-Paper-Conference,"We introduce Prompt-Transformer (P-Former) trained exclusively on linguistic data, bypassing the need for image-text pairings.",HIGH,HIGH,Dhatri
+002262941c9edfd472a79298b2ac5e17-Paper-Conference,"Experiments reveal that our framework significantly enhances the performance of the BLIP-2 image-to-text baseline.",HIGH,HIGH,Dhatri
