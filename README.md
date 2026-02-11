@@ -90,9 +90,3 @@ All outputs are stored inside the `outputs/` directory.
 
 ---
 
-## Running the Pipeline
-
-### Convert PDFs to Text
-
-```bash
-python scripts/pdf_to_text.py
